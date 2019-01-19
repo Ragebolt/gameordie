@@ -28,6 +28,9 @@ public class PrefabData_drawer : PropertyDrawer {
         rect.width = 80f;
         EditorGUI.IntField(rect, id);
         rect.x     += rect.width;
+        rect.width = (position.width - 80f) * 0.5f;
+        EditorGUI.TextField(rect, PrefabsContainer.GetTag(id));
+        rect.x += rect.width;
         rect.width =  w - rect.width;
         var ww = GUIContent.none;
         EditorGUI.ObjectField(rect, ww, PrefabsContainer.GetPrefab(id), typeof(GameObject), false);
