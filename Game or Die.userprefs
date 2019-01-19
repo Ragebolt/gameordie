@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Damagable.cs">
+    <Files>
+      <File FileName="Assets\VisualComponents\Blink\SpriteBlinkAnimation.cs" Line="4" Column="33" />
+      <File FileName="Assets\Scripts\Damagable.cs" Line="5" Column="30" />
+      <File FileName="C:\Users\Ded\Downloads\Guy_with_shield\Assets\Scripts\Environment\MirrorBase.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

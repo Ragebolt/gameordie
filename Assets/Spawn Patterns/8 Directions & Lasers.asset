@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192ec0db1987fd244bd7a7661e8b231a, type: 3}
+  m_Name: 8 Directions & Lasers
+  m_EditorClassIdentifier: 
+  objects:
+  - prefabData:
+      id: 6
+    spawnRect:
+      x: 7
+      y: 5
+      width: 0
+      height: 0
+    minRotation: 0
+    maxRotation: 0
+    spawnChance: 1
+    useCustomConfig: 0
+    config: 
+  - prefabData:
+      id: 1
+    spawnRect:
+      x: 3
+      y: 8
+      width: 9
+      height: 1
+    minRotation: 125.31647
+    maxRotation: 218.73419
+    spawnChance: 1
+    useCustomConfig: 0
+    config: 
+  - prefabData:
+      id: 1
+    spawnRect:
+      x: 8
+      y: 1
+      width: 6
+      height: 1
+    minRotation: 0
+    maxRotation: 77.46836
+    spawnChance: 1
+    useCustomConfig: 0
+    config: 
+  - prefabData:
+      id: 1
+    spawnRect:
+      x: 1
+      y: 1
+      width: 6
+      height: 1
+    minRotation: 289.3671
+    maxRotation: 350.88608
+    spawnChance: 0.6
+    useCustomConfig: 0
+    config: 
+  - prefabData:
+      id: 1
+    spawnRect:
+      x: 2
+      y: 1
+      width: 11
+      height: 1
+    minRotation: 0
+    maxRotation: 0
+    spawnChance: 0.3
+    useCustomConfig: 0
+    config: 
+  - prefabData:
+      id: 2
+    spawnRect:
+      x: 1
+      y: 2
+      width: 1
+      height: 6
+    minRotation: 255.18988
+    maxRotation: 330.37976
+    spawnChance: 0.75
+    useCustomConfig: 0
+    config: 
+  - prefabData:
+      id: 2
+    spawnRect:
+      x: 13
+      y: 2
+      width: 1
+      height: 6
+    minRotation: 45.569622
+    maxRotation: 116.202545
+    spawnChance: 0.75
+    useCustomConfig: 0
+    config: 
+  - prefabData:
+      id: 2
+    spawnRect:
+      x: 3
+      y: 8
+      width: 9
+      height: 1
+    minRotation: 153.82137
+    maxRotation: 179.13959
+    spawnChance: 0.4
+    useCustomConfig: 0
+    config: 
