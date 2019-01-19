@@ -4,34 +4,43 @@ using UnityEngine;
 
 [CustomPropertyDrawer(typeof(PrefabData))]
 public class PrefabData_drawer : PropertyDrawer {
+    private static Dictionary<PrefabData_drawer, int> popup = new Dictionary<PrefabData_drawer, int>();
+
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-        position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
         var pID   = property.FindPropertyRelative("id");
         var id    = pID.intValue;
         var ids   = PrefabsContainer.GetIDs();
         var names = new List<string>();
+
         var index = -1;
         foreach (var i in ids) {
-            names.Add("(" + i.ToString() + ") " + PrefabsContainer.GetPrefab(i).name);
+            names.Add("(" + PrefabsContainer.GetTag(i) + ") " + PrefabsContainer.GetPrefab(i).name);
             if (i == id) index = names.Count - 1;
         }
+
         var rect = position;
-        rect.height =  EditorGUIUtility.singleLineHeight;
-        
+        rect.height = EditorGUIUtility.singleLineHeight;
+        rect.width  = 100f;
+        EditorGUI.LabelField(rect, label);
+        rect.x     += rect.width;
+        rect.width =  position.width - rect.width;
+
         var newIndex = EditorGUI.Popup(rect, index, names.ToArray());
         if (newIndex != index)
             pID.intValue = ids[newIndex];
-        rect.y      += rect.height;
-        
-        GUI.enabled =  false;
+        rect.width =  position.width;
+        rect.x     =  position.x;
+        rect.y     += rect.height;
+
+        GUI.enabled = false;
         var w = rect.width;
-        rect.width = 80f;
+        rect.width = 40f;
         EditorGUI.IntField(rect, id);
-        rect.x     += rect.width;
-        rect.width = (position.width - 80f) * 0.5f;
-        EditorGUI.TextField(rect, PrefabsContainer.GetTag(id));
         rect.x += rect.width;
-        rect.width =  w - rect.width;
+        rect.width =  80f;
+        EditorGUI.TextField(rect, PrefabsContainer.GetTag(id));
+        rect.x     += rect.width;
+        rect.width =  w - 120f;
         var ww = GUIContent.none;
         EditorGUI.ObjectField(rect, ww, PrefabsContainer.GetPrefab(id), typeof(GameObject), false);
         GUI.enabled = true;
