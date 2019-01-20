@@ -5,26 +5,29 @@ using UnityEngine;
 public class PrefabsList : ScriptableObject {
     public List<GameObject> prefabs;
     public List<int>        ids;
+    public List<string>     tags;
 
     private void OnEnable() {
         if (prefabs == null) {
             prefabs = new List<GameObject>();
             ids     = new List<int>();
+            tags    = new List<string>();
         }
         UpdateContainer();
     }
 
     public void UpdateContainer() {
         PrefabsContainer.ClearPrefabs();
-        PrefabsContainer.AddRange(prefabs.ToArray(), ids.ToArray());
+        PrefabsContainer.AddRange(prefabs.ToArray(), ids.ToArray(), tags.ToArray());
     }
 
-    public void AddPrefab(GameObject prefab) {
+    public void AddPrefab(GameObject prefab, string tag) {
         if (prefabs.Contains(prefab)) return;
         prefabs.Add(prefab);
         var id = prefabs.Count - 1;
         while (ids.Contains(id)) id++;
         ids.Add(id);
+        tags.Add(tag);
         UpdateContainer();
     }
 
@@ -38,5 +41,11 @@ public class PrefabsList : ScriptableObject {
     public void RemovePrefabAt(int index) {
         prefabs.RemoveAt(index);
         ids.RemoveAt(index);
+    }
+
+    public void Clear() {
+        prefabs.Clear();
+        ids.Clear();
+        tags.Clear();
     }
 }
