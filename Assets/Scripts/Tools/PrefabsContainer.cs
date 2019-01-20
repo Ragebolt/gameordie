@@ -4,31 +4,18 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public static class PrefabsContainer {
-    private class PrefabItem {
-        public GameObject prefab;
-        public int        id;
-        public string     tag;
-    }
 
     private static readonly List<PrefabItem> prefabs = new List<PrefabItem>();
 
     public static void AddPrefab(GameObject _prefab, int _id, string _tag) {
         if (!prefabs.Any(t => t.id == _id)) {
-            prefabs.Add(new PrefabItem() {
-                                             prefab = _prefab,
-                                             id     = _id,
-                                             tag    = _tag
-                                         });
+            prefabs.Add(new PrefabItem(_prefab, _id, _tag));
         }
     }
 
     public static void AddRange(GameObject[] _prefabs, int[] _ids, string[] _tags) {
         for (int i = 0; i < _prefabs.Length; i++)
-            prefabs.Add(new PrefabItem() {
-                                             prefab = _prefabs[i],
-                                             id     = _ids[i],
-                                             tag    = _tags[i]
-                                         });
+            prefabs.Add(new PrefabItem( _prefabs[i], _ids[i], _tags[i]));
     }
 
     public static void RemovePrefab(int _id) {
@@ -42,7 +29,9 @@ public static class PrefabsContainer {
     }
 
     public static GameObject GetPrefab(int _id) {
-        return prefabs.First(t => t.id == _id).prefab;
+        var p = prefabs.FirstOrDefault(t => t.id == _id);
+        if (p == null) return null;
+        return p.prefab;
     }
 
     public static int GetPrefabID(GameObject prefab) {

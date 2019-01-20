@@ -14,7 +14,9 @@ public class PrefabData_drawer : PropertyDrawer {
 
         var index = -1;
         foreach (var i in ids) {
-            names.Add("(" + PrefabsContainer.GetTag(i) + ") " + PrefabsContainer.GetPrefab(i).name);
+            var s = PrefabsContainer.GetTag(i);
+            s = (s == "") ? s = "<none>/" + PrefabsContainer.GetPrefab(i).name : s = s + "/" + PrefabsContainer.GetPrefab(i).name;
+            names.Add(s);
             if (i == id) index = names.Count - 1;
         }
 

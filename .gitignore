@@ -33,3 +33,7 @@ Thumbs.db
 /.vs/
 /.idea/
 /build/
+
+Assets/Editor/ConsolePro/
+
+Assets/Editor/ConsolePro\.meta
