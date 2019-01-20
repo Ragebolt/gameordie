@@ -18,6 +18,8 @@ public class PrefabsList : ScriptableObject {
 
     public void UpdateContainer() {
         PrefabsContainer.ClearPrefabs();
+        while (tags.Count < prefabs.Count)
+            tags.Add("");
         PrefabsContainer.AddRange(prefabs.ToArray(), ids.ToArray(), tags.ToArray());
     }
 

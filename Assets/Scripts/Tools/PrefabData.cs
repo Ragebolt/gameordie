@@ -5,7 +5,7 @@ using UnityEngine;
 public class PrefabData {
     public int id = -1;
 
-    public GameObject Prefab {
+    public GameObject prefab {
         get { return PrefabsContainer.GetPrefab(id); }
     }
 }

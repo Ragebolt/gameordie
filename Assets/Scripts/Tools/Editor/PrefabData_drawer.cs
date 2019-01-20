@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using EasyEditorGUI;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,28 +23,30 @@ public class PrefabData_drawer : PropertyDrawer {
 
         var rect = position;
         rect.height = EditorGUIUtility.singleLineHeight;
-        rect.width  = 100f;
+        rect.width  = Mathf.Min(100f, position.width * 0.5f);
         EditorGUI.LabelField(rect, label);
         rect.x     += rect.width;
         rect.width =  position.width - rect.width;
 
         var newIndex = EditorGUI.Popup(rect, index, names.ToArray());
-        if (newIndex != index)
+        if (newIndex != index) {
             pID.intValue = ids[newIndex];
+            eGUI.MarkAsDirty();
+        }
         rect.width =  position.width;
         rect.x     =  position.x;
         rect.y     += rect.height;
 
         GUI.enabled = false;
         var w = rect.width;
-        rect.width = 40f;
-        EditorGUI.IntField(rect, id);
-        rect.x += rect.width;
-        rect.width =  80f;
-        EditorGUI.TextField(rect, PrefabsContainer.GetTag(id));
-        rect.x     += rect.width;
-        rect.width =  w - 120f;
+        rect.width = w * 0.2f;
         var ww = GUIContent.none;
+        EditorGUI.IntField(rect, ww, id);
+        rect.x += rect.width;
+        rect.width =  w * 0.3f;
+        EditorGUI.TextField(rect, ww, PrefabsContainer.GetTag(id));
+        rect.x     += rect.width;
+        rect.width =  w * 0.5f;
         EditorGUI.ObjectField(rect, ww, PrefabsContainer.GetPrefab(id), typeof(GameObject), false);
         GUI.enabled = true;
     }
