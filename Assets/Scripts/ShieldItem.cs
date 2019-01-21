@@ -10,7 +10,7 @@ public class ShieldItem : MonoBehaviour
     {
         if (collision.tag != "Player") return;
 
-        PlayerController.Instance.TakeShield(shieldPrefab);
+        //PlayerController.Instance.TakeShield(shieldPrefab);
         Destroy(gameObject);
     }
 }

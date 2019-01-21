@@ -76,16 +76,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 3001220229740241539}
   shootingPoint: {fileID: 1917218404053443240}
-  weaponRotationSpeed: 400
-  shootingRate: 0.5
-  bulletsSettings:
-    startSpeed: 1
-    damage: 1
-    destroyCondition: 2
-    contactsToDestroy: 1
-    destroyEffect: {fileID: 0}
   bulletPrefab: {fileID: 1002815308598508, guid: 3570aa8a99590da43900745aba4f3178,
     type: 3}
+  config:
+    weaponRotationSpeed: 300
+    shootingRate: 1
+    bulletsSettings:
+      startSpeed: 15
+      damage: 1
+      destroyCondition: 2
+      contactsToDestroy: 0
+      destroyEffect: {fileID: 0}
   viewZone: {fileID: 7753291053615678338}
 --- !u!1 &7798062393924254895
 GameObject:
@@ -257,6 +258,11 @@ PrefabInstance:
         type: 3}
       propertyPath: moveSpeed
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944673420541566185, guid: 1924d91a799a86e4ab69b9418b43c986,
+        type: 3}
+      propertyPath: config.moveSpeed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9164218472607818727, guid: 1924d91a799a86e4ab69b9418b43c986,
         type: 3}
