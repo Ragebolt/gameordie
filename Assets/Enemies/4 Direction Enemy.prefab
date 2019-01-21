@@ -107,7 +107,7 @@ MonoBehaviour:
     angleIncrementIterations: 45
     iterationsToReset: 2
     bulletsSettings:
-      startSpeed: 1
+      startSpeed: 11
       damage: 1
       destroyCondition: 2
       contactsToDestroy: 2

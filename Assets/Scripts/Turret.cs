@@ -24,7 +24,7 @@ public class Turret : Enemy, IConfig
     }
 
     [Space]
-    [SerializeField] private ViewZone viewZone;
+    [SerializeField] private ObservedZone viewZone;
 
     private Transform target;
     private Transform Target
