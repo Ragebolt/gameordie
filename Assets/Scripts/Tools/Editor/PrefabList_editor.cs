@@ -43,7 +43,12 @@ public class PrefabList_editor : Editor {
                     EditorGUILayout.IntField(prefabs.ids[i], w);
                     w               = GUILayout.Width(eGUI.indentWidth * 0.2f);
                     GUI.enabled     = true;
-                    prefabs.tags[i] = EditorGUILayout.TextField(prefabs.tags[i], w);
+                    var s = EditorGUILayout.TextField(prefabs.tags[i], w);
+                    if (s != prefabs.tags[i]) {
+                        prefabs.tags[i] = s;
+                        prefabs.UpdateContainer();
+                        EditorUtility.SetDirty(prefabs);
+                    }
                     w               = GUILayout.Width(eGUI.indentWidth * 0.52f);
                     GUI.enabled     = false;
                     EditorGUILayout.ObjectField(prefabs.prefabs[i], typeof(GameObject), false, w);
