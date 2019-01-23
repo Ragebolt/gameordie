@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Generation;
-using Shields.Modules;
+using UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,36 +10,32 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private new SpriteRenderer renderer;
     [SerializeField] private Transform origin;
+    [SerializeField] private Damagable damagable;
 
-
-    [Space]
-    [SerializeField] private ShieldController shield;
-    public ShieldController Shield { get { return shield; } }
-
-    public Transform shootingPoint;
-
-    public Vector3 Direction2D { get; private set; }
     public Transform Origin { get { return origin; } }
+    public SpriteRenderer Renderer { get { return renderer; } }
+    public float TimeScale { get; set; } = 1f;
 
-    private Generator.RoomInfo curRoom;
+    public Generator.RoomInfo Room { get; private set; }
 
 
     public static PlayerController Instance { get; private set; }
 
 
-	void Awake ()
+    private void Awake ()
     {
         Instance = this;
 	}
-	
-	void Update ()
+
+    private void Start()
+    {
+        damagable.OnHealthChanged += UIController.HPBar.Refresh;
+    }
+
+    private void Update ()
     {
         Move();
-        Rotate();
         CheckRoom();
-
-        if (Input.GetKeyDown(KeyCode.Mouse0)) shield.ActiveDefenceModule?.StartActiveDefence();
-        if (Input.GetKeyDown(KeyCode.Mouse1)) shield.SpecialAbilityModule?.StartAbility();
     }
 
 
@@ -52,19 +48,7 @@ public class PlayerController : MonoBehaviour
 
         input.Normalize();
 
-        rb.velocity = input * speed;
-    }
-
-    private void Rotate()
-    {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0f;
-
-        Vector3 pos = origin.position; pos.z = 0f;
-
-        Direction2D = (mousePos - pos).normalized;
-
-        shield.SetDirection(Direction2D, renderer.sortingOrder);
+        rb.velocity = input * speed * TimeScale;
     }
 
     private void CheckRoom()
@@ -72,17 +56,17 @@ public class PlayerController : MonoBehaviour
         Generator.RoomInfo room = Generator.Instance.GetRoomOnCoords(origin.position);
 
         // При переходе в новую комнату...
-        if (curRoom != room)
+        if (Room != room)
         {
             CameraController.Instance.target = room.GameObject.transform;
 
-            if (curRoom != null)
+            if (Room != null)
             { 
-                foreach (var enemy in curRoom.enemies)
+                foreach (var enemy in Room.enemies)
                 {
                     enemy.Disable();
                 }
-                curRoom.Carcass.OpenDoors();
+                Room.Carcass.OpenDoors();
             }
 
             foreach (var enemy in room.enemies)
@@ -93,14 +77,6 @@ public class PlayerController : MonoBehaviour
             if (!room.IsPassed) room.Carcass.CloseDoors();
         }
 
-        curRoom = room;
+        Room = room;
     }
-
-
-    //public void TakeShield(GameObject prefab)
-    //{
-    //    Destroy(shield.gameObject);
-    //    shield = Instantiate(prefab, shieldRoot.transform).GetComponent<ShieldBase>();
-    //    shield.shieldRoot = shieldRoot;
-    //}
 }

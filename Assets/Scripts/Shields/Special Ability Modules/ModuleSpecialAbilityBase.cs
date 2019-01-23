@@ -1,12 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UI;
 
 namespace Shields.Modules
 {
     public abstract class ModuleSpecialAbilityBase : ShieldModule
     {
-        private float charge = 0f;
+        public event System.Action<float, float> OnChargeChanged = (f1, f2) => { };
+
+        [SerializeField] private float charge = 0f;
+        [SerializeField] private float maxCharge = 1f;
+        [SerializeField] private float chargeCost = 1f;
+
+
+        private float Charge
+        {
+            get { return charge; }
+            set
+            {
+                charge = Mathf.Clamp(value, 0f, maxCharge);
+                OnChargeChanged(charge, maxCharge);
+            }
+        }
+        
+
+
+        private void Start()
+        {
+            InputController.OnSuperAbilityButton += StartAbility;
+            OnChargeChanged += UIController.ChargeBar.Refresh;
+            Charge = charge;
+
+            GetAnotherModules();
+        }
 
 
         /// <summary>
@@ -15,8 +42,7 @@ namespace Shields.Modules
         /// <param name="value"></param>
         public void AddCharge(float value)
         {
-            charge += value;
-            ShieldController.SpecialAbilityChargeChanged(charge);
+            Charge += value;
         }
 
 
@@ -25,10 +51,16 @@ namespace Shields.Modules
         /// </summary>
         public void StartAbility()
         {
-            if (charge < 1f) return;
+            if (Charge < chargeCost || !CanStartAbility()) return;
+            Charge -= chargeCost;
 
             OnStartAbility();
         }
+
+        /// <summary>
+        /// Переопределять для условия старта способности
+        /// </summary>
+        protected virtual bool CanStartAbility() { return true; }
 
         /// <summary>
         /// Действия после старта для переопределения
@@ -40,5 +72,11 @@ namespace Shields.Modules
         /// Принудительная остановка способности
         /// </summary>
         public virtual void StopAbility() { }
+
+
+        protected override void OnModuleGetted(ShieldModule module)
+        {
+            if (module is ISpecialChargeProvider) (module as ISpecialChargeProvider).OnChargeGenerated += AddCharge;
+        }
     }
 }
