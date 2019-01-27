@@ -8,7 +8,6 @@ TagManager:
   - Enemy
   - Wall
   - Laser Caster
-  - Bullet
   layers:
   - Default
   - TransparentFX

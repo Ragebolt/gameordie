@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObservedZone : MonoBehaviour
+public class ViewZone : MonoBehaviour
 {
     public event System.Action<Transform> OnEnter = t => { };
     public event System.Action<Transform> OnExit = t => { };
@@ -27,27 +27,6 @@ public class ObservedZone : MonoBehaviour
 
         return null;
     }
-
-    public List<Transform> GetObjects()
-    {
-        List<Transform> result = new List<Transform>();
-
-        for (int i = 0; i < objectsInRange.Count; i++)
-        {
-            if (CheckObject(objectsInRange[i]))
-            {
-                result.Add(objectsInRange[i]);
-            }
-            else
-            {
-                objectsInRange.RemoveAt(i);
-                i--;
-            }
-        }
-
-        return result;
-    }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

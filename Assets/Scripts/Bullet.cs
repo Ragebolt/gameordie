@@ -6,7 +6,7 @@ using Generation;
 public class Bullet : MonoBehaviour
 {
     public GameObject Creator { get; set; }
-    public Rigidbody2D Rigidbody { get { return rb; } }
+
 
     public float StartSpeed
     {
@@ -73,7 +73,7 @@ public class Bullet : MonoBehaviour
 
         roomCoords = Generator.Instance.GlobalToLocal(transform.position);
 
-        rb.velocity = transform.up * speed;
+        rb.velocity = transform.up * speed * 10f;
     }
 	
 	void Update ()
@@ -95,7 +95,7 @@ public class Bullet : MonoBehaviour
 
             if (Vector3.Dot(transform.up, PlayerController.Instance.Direction2D) > 0f) return;
 
-            PlayerController.Instance.Shield.ReflectionModule.OnBullet(this, collision);
+            PlayerController.Instance.shield.OnBullet(this, collision);
             return;
         }
 
@@ -109,7 +109,15 @@ public class Bullet : MonoBehaviour
         if (settings.destroyCondition == DestroyCondition.NoShieldHit) Destroy(gameObject);
 
         OnContact();
+        //Reflect(collision);
     }
+
+    //public void Reflect(Collision2D collision)
+    //{
+    //    ContactPoint2D contact = collision.contacts[0];
+
+    //    transform.up = Vector3.Reflect(transform.up, contact.normal);
+    //}
 
     public void OnContact()
     {

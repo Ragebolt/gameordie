@@ -333,7 +333,7 @@ MonoBehaviour:
     weaponRotationSpeed: 300
     shootingRate: 1
     bulletsSettings:
-      startSpeed: 15
+      startSpeed: 2
       damage: 1
       destroyCondition: 2
       contactsToDestroy: 0

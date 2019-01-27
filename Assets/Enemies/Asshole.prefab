@@ -316,10 +316,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2352a64d058d74d94f70c21bb07461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 3
   viewZone: {fileID: 1258131838596374907}
   rb: {fileID: 1571647904851674451}
-  config:
-    moveSpeed: 0.8
 --- !u!50 &1571647904851674451
 Rigidbody2D:
   serializedVersion: 4
@@ -371,17 +370,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 8599506058633279174}
   shootingPoint: {fileID: 6110820193791217581}
+  weaponRotationSpeed: 400
+  shootingRate: 2
+  bulletsSettings:
+    startSpeed: 1
+    damage: 1
+    destroyCondition: 2
+    contactsToDestroy: 1
+    destroyEffect: {fileID: 0}
   bulletPrefab: {fileID: 1002815308598508, guid: 3570aa8a99590da43900745aba4f3178,
     type: 3}
-  config:
-    weaponRotationSpeed: 300
-    shootingRate: 1
-    bulletsSettings:
-      startSpeed: 15
-      damage: 2
-      destroyCondition: 2
-      contactsToDestroy: 0
-      destroyEffect: {fileID: 0}
   viewZone: {fileID: 1258131838596374907}
 --- !u!114 &4935660539728495165
 MonoBehaviour:

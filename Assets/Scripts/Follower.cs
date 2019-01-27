@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Follower : Enemy
 {
-    [SerializeField] private ObservedZone viewZone;
+    [SerializeField] private ViewZone viewZone;
     [SerializeField] private Rigidbody2D rb;
 
     private Transform target;
