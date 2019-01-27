@@ -175,16 +175,4 @@ public class Laser : MonoBehaviour
 
         isDisabled = false;
     }
-
-
-    public static Laser CreateOneshotLaser(GameObject prefab, Vector3 position, Vector3 direction, float damage, float duration = 0.2f)
-    {
-        Laser laser = Instantiate(prefab).GetComponent<Laser>();
-        laser.StartPoint = position;
-        laser.SetToDirection(direction);
-        laser.CauseDamage(damage);
-        Destroy(laser.gameObject, 0.15f);
-
-        return laser;
-    }
 }

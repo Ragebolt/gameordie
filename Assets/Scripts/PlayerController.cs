@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Generation;
-<<<<<<< HEAD
 using Shields.Modules;
-=======
-using UI;
->>>>>>> master
 
 public class PlayerController : MonoBehaviour {
     [SerializeField] private     float          speed;
     [SerializeField] private     Rigidbody2D    rb;
     [SerializeField] private new SpriteRenderer renderer;
-<<<<<<< HEAD
     [SerializeField] private     Transform      origin;
 
     [Space]
@@ -36,50 +31,22 @@ public class PlayerController : MonoBehaviour {
     public Transform Origin {
         get { return origin; }
     }
-=======
-    [SerializeField] private Transform origin;
-    [SerializeField] private Damagable damagable;
-
-    public Transform Origin { get { return origin; } }
-    public SpriteRenderer Renderer { get { return renderer; } }
-    public float TimeScale { get; set; } = 1f;
-
-    public Generator.RoomInfo Room { get; private set; }
->>>>>>> master
 
     private Generator.RoomInfo curRoom;
 
     public static PlayerController Instance { get; private set; }
 
-<<<<<<< HEAD
     void Awake() {
         Instance = this;
     }
 
     void Update() {
-=======
-
-    private void Awake ()
-    {
-        Instance = this;
-	}
-
-    private void Start()
-    {
-        damagable.OnHealthChanged += UIController.HPBar.Refresh;
-    }
-
-    private void Update ()
-    {
->>>>>>> master
         Move();
+        Rotate();
         CheckRoom();
-<<<<<<< HEAD
 
         if (Input.GetKeyDown(KeyCode.Mouse0)) shield.ActiveDefenceModule?.StartActiveDefence();
         if (Input.GetKeyDown(KeyCode.Mouse1)) shield.SpecialAbilityModule?.StartAbility();
-=======
->>>>>>> master
     }
 
     private void Move() {
@@ -90,7 +57,6 @@ public class PlayerController : MonoBehaviour {
 
         input.Normalize();
 
-<<<<<<< HEAD
         rb.velocity = input * speed;
     }
 
@@ -115,34 +81,20 @@ public class PlayerController : MonoBehaviour {
 =======
         shield.SetDirection(Direction2D, renderer.sortingOrder);
 >>>>>>> Stalin
-=======
-        rb.velocity = input * speed * TimeScale;
->>>>>>> master
     }
 
     private void CheckRoom() {
         Generator.RoomInfo room = Generator.Instance.GetRoomOnCoords(origin.position);
 
         // При переходе в новую комнату...
-<<<<<<< HEAD
         if (curRoom != room) {
             CameraController.Instance.target = room.GameObject.transform;
 
             if (curRoom != null) {
                 foreach (var enemy in curRoom.enemies) {
-=======
-        if (Room != room)
-        {
-            CameraController.Instance.target = room.GameObject.transform;
-
-            if (Room != null)
-            { 
-                foreach (var enemy in Room.enemies)
-                {
->>>>>>> master
                     enemy.Disable();
                 }
-                Room.Carcass.OpenDoors();
+                curRoom.Carcass.OpenDoors();
             }
 
             foreach (var enemy in room.enemies) {
@@ -152,7 +104,6 @@ public class PlayerController : MonoBehaviour {
             if (!room.IsPassed) room.Carcass.CloseDoors();
         }
 
-<<<<<<< HEAD
         curRoom = room;
     }
 
@@ -161,9 +112,6 @@ public class PlayerController : MonoBehaviour {
         Destroy(shield.gameObject);
         shield            = Instantiate(prefab, shieldRoot.transform).GetComponent<ShieldBase>();
         shield.shieldRoot = shieldRoot;
-=======
-        Room = room;
->>>>>>> master
     }
 =======
 

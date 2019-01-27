@@ -69,30 +69,6 @@ public static class RectIntExtend {
 
 public static class MonoBehaviourExtension {
     /// <summary>
-    /// Call delegate while predicate is true
-    /// </summary>
-    /// <param name="mn"></param>
-    /// <param name="func">Delegate</param>
-    /// <param name="predicate">Predicate</param>
-    /// <param name="endFunc">Delegate after end</param>
-    /// <returns></returns>
-    public static Coroutine InvokeWhile(this MonoBehaviour mn, Action func, Func<bool> predicate, Action endFunc = null)
-    {
-        return mn.StartCoroutine(InvokeWhileCor(func, predicate, endFunc));
-    }
-
-    private static IEnumerator InvokeWhileCor(Action func, Func<bool> predicate, Action endFunc)
-    {
-        while (predicate())
-        {
-            func();
-            yield return null;
-        }
-
-        if (endFunc != null) endFunc();
-    }
-
-    /// <summary>
     ///     Call delegate after pause (time scaled)
     /// </summary>
     /// <param name="mn"></param>

@@ -28,7 +28,7 @@ public class ThrownShield : MonoBehaviour
 	
 	void Update ()
     {
-        transform.position += transform.up * Speed * Time.deltaTime;
+        transform.position += transform.up * Speed * Time.deltaTime * 10f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
