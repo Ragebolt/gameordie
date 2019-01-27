@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Generation;
+using Shields;
+using Shields.Modules;
 
 public class Bullet : MonoBehaviour
 {
@@ -91,11 +93,15 @@ public class Bullet : MonoBehaviour
 
         if (collision.collider.tag == "Shield")
         {
-            if (PlayerController.Instance.gameObject == Creator) return;
+            ModuleReflectionBase reflection = collision.collider.GetComponent<ModuleReflectionBase>();
 
-            if (Vector3.Dot(transform.up, PlayerController.Instance.Direction2D) > 0f) return;
+            if (Vector3.Dot(transform.up, reflection.Direction) > 0f) return;
 
+<<<<<<< HEAD
             PlayerController.Instance.Shield.ReflectionModule.OnBullet(this, collision);
+=======
+            reflection.OnBullet(this, collision);
+>>>>>>> master
             return;
         }
 

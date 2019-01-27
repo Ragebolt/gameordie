@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5690041908848252424
+--- !u!1 &8448462396574626977
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4308047829641976880}
-  - component: {fileID: 1530281138825135666}
-  m_Layer: 10
-  m_Name: Absorbent Shield Behaviour
+  - component: {fileID: 2488248541681908264}
+  - component: {fileID: 6336139172071825562}
+  m_Layer: 0
+  m_Name: TimeSlow Ability Module
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4308047829641976880
+--- !u!4 &2488248541681908264
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5690041908848252424}
+  m_GameObject: {fileID: 8448462396574626977}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,23 +31,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1530281138825135666
+--- !u!114 &6336139172071825562
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5690041908848252424}
+  m_GameObject: {fileID: 8448462396574626977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8962f02e52e0a704784cd9eb78dc9f57, type: 3}
+  m_Script: {fileID: 11500000, guid: 54293f8ad3919644dbd5f80ecb9627eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletsSettings:
-    startSpeed: 1
-    damage: 1
-    destroyCondition: 0
-    contactsToDestroy: 0
-    destroyEffect: {fileID: 0}
-  bulletPrefab: {fileID: 1002815308598508, guid: 3570aa8a99590da43900745aba4f3178,
-    type: 3}
+  charge: 0
+  maxCharge: 1
+  chargeCost: 1
+  realtimeDuration: 3
+  slowedScale: 0.5
+  playerSlowedScale: 0.75
