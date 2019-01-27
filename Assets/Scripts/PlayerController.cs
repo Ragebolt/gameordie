@@ -3,39 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using Generation;
 
-public class PlayerController : MonoBehaviour
-{
-    [SerializeField] private float speed;
-    [SerializeField] private Rigidbody2D rb;
+public class PlayerController : MonoBehaviour {
+    [SerializeField] private     float          speed;
+    [SerializeField] private     Rigidbody2D    rb;
     [SerializeField] private new SpriteRenderer renderer;
-    [SerializeField] private Transform origin;
-
+    [SerializeField] private     Transform      origin;
 
     [Space]
     public ShieldBase shield;
-    [SerializeField] private GameObject shieldRoot;
-    [SerializeField] private Transform visualShieldTransform;
-    [SerializeField] private Transform colliderShieldTransform;
+    [SerializeField] private GameObject     shieldRoot;
+    [SerializeField] private Transform      visualShieldTransform;
+    [SerializeField] private Transform      colliderShieldTransform;
     [SerializeField] private SpriteRenderer shieldRenderer;
-    public GameObject secondShield;
-    public Transform shootingPoint;
+    public                   GameObject     secondShield;
+    public                   Transform      shootingPoint;
 
     public Vector3 Direction2D { get; private set; }
-    public Transform Origin { get { return origin; } }
+
+    public Transform Origin {
+        get { return origin; }
+    }
 
     private Generator.RoomInfo curRoom;
 
-
     public static PlayerController Instance { get; private set; }
 
-
-	void Awake ()
-    {
+    void Awake() {
         Instance = this;
-	}
-	
-	void Update ()
-    {
+    }
+
+    void Update() {
         Move();
         Rotate();
         CheckRoom();
@@ -45,9 +42,7 @@ public class PlayerController : MonoBehaviour
         shield.AbilityUpdate();
     }
 
-
-    private void Move()
-    {
+    private void Move() {
         float xInput = Input.GetAxisRaw("Horizontal");
         float yInput = Input.GetAxisRaw("Vertical");
 
@@ -58,12 +53,12 @@ public class PlayerController : MonoBehaviour
         rb.velocity = input * speed;
     }
 
-    private void Rotate()
-    {
+    private void Rotate() {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
 
-        Vector3 pos = origin.position; pos.z = 0f;
+        Vector3 pos = origin.position;
+        pos.z = 0f;
 
         Direction2D = (mousePos - pos).normalized;
 
@@ -74,29 +69,24 @@ public class PlayerController : MonoBehaviour
 
         float angle = Mathf.Repeat(rot.eulerAngles.z, 360f);
         if (angle > 270f || angle < 90f) shieldRenderer.sortingOrder = renderer.sortingOrder - 1;
-        else shieldRenderer.sortingOrder = renderer.sortingOrder + 1;
+        else shieldRenderer.sortingOrder                             = renderer.sortingOrder + 1;
     }
 
-    private void CheckRoom()
-    {
+    private void CheckRoom() {
         Generator.RoomInfo room = Generator.Instance.GetRoomOnCoords(origin.position);
 
         // При переходе в новую комнату...
-        if (curRoom != room)
-        {
+        if (curRoom != room) {
             CameraController.Instance.target = room.GameObject.transform;
 
-            if (curRoom != null)
-            { 
-                foreach (var enemy in curRoom.enemies)
-                {
+            if (curRoom != null) {
+                foreach (var enemy in curRoom.enemies) {
                     enemy.Disable();
                 }
                 curRoom.Carcass.OpenDoors();
             }
 
-            foreach (var enemy in room.enemies)
-            {
+            foreach (var enemy in room.enemies) {
                 enemy.Activate();
             }
 
@@ -106,11 +96,9 @@ public class PlayerController : MonoBehaviour
         curRoom = room;
     }
 
-
-    public void TakeShield(GameObject prefab)
-    {
+    public void TakeShield(GameObject prefab) {
         Destroy(shield.gameObject);
-        shield = Instantiate(prefab, shieldRoot.transform).GetComponent<ShieldBase>();
+        shield            = Instantiate(prefab, shieldRoot.transform).GetComponent<ShieldBase>();
         shield.shieldRoot = shieldRoot;
     }
 }

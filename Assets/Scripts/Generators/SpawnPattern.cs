@@ -20,7 +20,7 @@ namespace Generation
                 var rot = Quaternion.Euler(0f, 0f, Random.Range(obj.minRotation, obj.maxRotation));
                 var spawnPoint = new Vector2(Random.Range(obj.spawnRect.xMin, obj.spawnRect.xMax + 1), Random.Range(obj.spawnRect.yMin, obj.spawnRect.yMax + 1));
                 spawnPoint -= generator.roomSize * new Vector2(0.5f, 0.5f);
-                var go = Instantiate(obj.prefabData.Prefab, generator.LocalToGlobal(roomPos) + (Vector3)spawnPoint, rot);
+                var go = Instantiate(obj.prefabData.prefab, generator.LocalToGlobal(roomPos) + (Vector3)spawnPoint, rot);
                 gameObjects.Add(go);
                 if (obj.useCustomConfig) go.GetComponent<IConfig>()?.SetConfig(obj.config);
             }
