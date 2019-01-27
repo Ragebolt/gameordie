@@ -239,7 +239,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1 &705977714
+=======
+--- !u!1 &538137133
+>>>>>>> Stalin
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,45 +251,90 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 705977715}
   - component: {fileID: 705977717}
   - component: {fileID: 705977716}
   - component: {fileID: 705977718}
   m_Layer: 0
   m_Name: Camera
+=======
+  - component: {fileID: 538137134}
+  - component: {fileID: 538137137}
+  - component: {fileID: 538137136}
+  - component: {fileID: 538137135}
+  m_Layer: 5
+  m_Name: Charge Bar
+>>>>>>> Stalin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!4 &705977715
 Transform:
+=======
+--- !u!224 &538137134
+RectTransform:
+>>>>>>> Stalin
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 705977714}
+=======
+  m_GameObject: {fileID: 538137133}
+>>>>>>> Stalin
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
+<<<<<<< HEAD
   m_Father: {fileID: 2049296517}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &705977716
 AudioListener:
+=======
+  m_Father: {fileID: 621530068}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -6, y: -6}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &538137135
+MonoBehaviour:
+>>>>>>> Stalin
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 705977714}
   m_Enabled: 1
 --- !u!20 &705977717
 Camera:
+=======
+  m_GameObject: {fileID: 538137133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0898b1edef7955439c86f9783368b3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shield: {fileID: 6072021199690236087}
+  image: {fileID: 538137136}
+--- !u!114 &538137136
+MonoBehaviour:
+>>>>>>> Stalin
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 705977714}
   m_Enabled: 1
   serializedVersion: 2
@@ -323,11 +372,84 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!114 &705977718
+=======
+  m_GameObject: {fileID: 538137133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.9529412, g: 0.78323615, b: 0.058823552, a: 1}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 16848832d169b4242a025ed68abce402, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 0
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &538137137
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538137133}
+  m_CullTransparentMesh: 0
+--- !u!1 &621530067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 621530068}
+  - component: {fileID: 621530070}
+  - component: {fileID: 621530069}
+  m_Layer: 5
+  m_Name: Charge Bar Handler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &621530068
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621530067}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 538137134}
+  m_Father: {fileID: 1132796344}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 377.9, y: -32.599976}
+  m_SizeDelta: {x: 229.14001, y: 28.660004}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &621530069
+>>>>>>> Stalin
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 705977714}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -338,6 +460,39 @@ MonoBehaviour:
   pixelSizeX: 20
   pixelSizeY: 20
   lockXY: 1
+=======
+  m_GameObject: {fileID: 621530067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &621530070
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621530067}
+  m_CullTransparentMesh: 0
+>>>>>>> Stalin
 --- !u!1 &1094789023
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,6 +673,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1757823082}
+  - {fileID: 621530068}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -529,12 +685,6 @@ RectTransform:
 --- !u!4 &1307586056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7181650157190383245, guid: 400cf37dc370ee447a20c733b3f2166b,
-    type: 3}
-  m_PrefabInstance: {fileID: 7181650158214850693}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1419753845 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9222376125096793138, guid: 400cf37dc370ee447a20c733b3f2166b,
     type: 3}
   m_PrefabInstance: {fileID: 7181650158214850693}
   m_PrefabAsset: {fileID: 0}
@@ -889,6 +1039,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 087aea4676fa01243a2820b2ae58cdbb, type: 3}
+--- !u!114 &6072021199690236087 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6072021199690236087, guid: 400cf37dc370ee447a20c733b3f2166b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7181650158214850693}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5afc5e26ecb394198b99d2343ca789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7181650158214850693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -956,6 +1118,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 1544368088377037041, guid: 400cf37dc370ee447a20c733b3f2166b,
         type: 3}
       propertyPath: shieldRoot
@@ -1016,5 +1179,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+=======
+>>>>>>> Stalin
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 400cf37dc370ee447a20c733b3f2166b, type: 3}
