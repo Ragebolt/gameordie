@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
+using Entities;
 using Random = UnityEngine.Random;
 
 namespace Generation
