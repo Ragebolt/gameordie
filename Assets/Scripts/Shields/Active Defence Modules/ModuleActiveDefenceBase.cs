@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VisualComponents.Blink;
+using Entities;
 
 namespace Shields.Modules
 {
