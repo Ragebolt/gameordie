@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Generation;
+<<<<<<< HEAD
+=======
+using UI;
+>>>>>>> Stalin
 
 public class PlayerController : MonoBehaviour {
     [SerializeField] private     float          speed;
     [SerializeField] private     Rigidbody2D    rb;
     [SerializeField] private new SpriteRenderer renderer;
+<<<<<<< HEAD
     [SerializeField] private     Transform      origin;
 
     [Space]
@@ -23,21 +28,50 @@ public class PlayerController : MonoBehaviour {
     public Transform Origin {
         get { return origin; }
     }
+=======
+    [SerializeField] private Transform origin;
+    [SerializeField] private Damagable damagable;
+
+    public Transform Origin { get { return origin; } }
+    public SpriteRenderer Renderer { get { return renderer; } }
+    public float TimeScale { get; set; } = 1f;
+
+    public Generator.RoomInfo Room { get; private set; }
+>>>>>>> Stalin
 
     private Generator.RoomInfo curRoom;
 
     public static PlayerController Instance { get; private set; }
 
+<<<<<<< HEAD
     void Awake() {
         Instance = this;
     }
 
     void Update() {
+=======
+
+    private void Awake ()
+    {
+        Instance = this;
+	}
+
+    private void Start()
+    {
+        damagable.OnHealthChanged += UIController.HPBar.Refresh;
+    }
+
+    private void Update ()
+    {
+>>>>>>> Stalin
         Move();
-        Rotate();
         CheckRoom();
+<<<<<<< HEAD
 
         if (Input.GetKeyDown(KeyCode.Mouse0)) shield.StartAbility();
+=======
+    }
+>>>>>>> Stalin
 
         shield.AbilityUpdate();
     }
@@ -50,6 +84,7 @@ public class PlayerController : MonoBehaviour {
 
         input.Normalize();
 
+<<<<<<< HEAD
         rb.velocity = input * speed;
     }
 
@@ -70,20 +105,34 @@ public class PlayerController : MonoBehaviour {
         float angle = Mathf.Repeat(rot.eulerAngles.z, 360f);
         if (angle > 270f || angle < 90f) shieldRenderer.sortingOrder = renderer.sortingOrder - 1;
         else shieldRenderer.sortingOrder                             = renderer.sortingOrder + 1;
+=======
+        rb.velocity = input * speed * TimeScale;
+>>>>>>> Stalin
     }
 
     private void CheckRoom() {
         Generator.RoomInfo room = Generator.Instance.GetRoomOnCoords(origin.position);
 
         // При переходе в новую комнату...
+<<<<<<< HEAD
         if (curRoom != room) {
             CameraController.Instance.target = room.GameObject.transform;
 
             if (curRoom != null) {
                 foreach (var enemy in curRoom.enemies) {
+=======
+        if (Room != room)
+        {
+            CameraController.Instance.target = room.GameObject.transform;
+
+            if (Room != null)
+            { 
+                foreach (var enemy in Room.enemies)
+                {
+>>>>>>> Stalin
                     enemy.Disable();
                 }
-                curRoom.Carcass.OpenDoors();
+                Room.Carcass.OpenDoors();
             }
 
             foreach (var enemy in room.enemies) {
@@ -93,12 +142,15 @@ public class PlayerController : MonoBehaviour {
             if (!room.IsPassed) room.Carcass.CloseDoors();
         }
 
-        curRoom = room;
+        Room = room;
     }
+<<<<<<< HEAD
 
     public void TakeShield(GameObject prefab) {
         Destroy(shield.gameObject);
         shield            = Instantiate(prefab, shieldRoot.transform).GetComponent<ShieldBase>();
         shield.shieldRoot = shieldRoot;
     }
+=======
+>>>>>>> Stalin
 }
