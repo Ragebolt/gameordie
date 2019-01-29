@@ -196,7 +196,6 @@ MonoBehaviour:
   doorWidth: 2
   enemiesSpawnPatterns:
   - {fileID: 11400000, guid: 1b04b5cb1eaaa8a4388c967e4b52056a, type: 2}
-  - {fileID: 11400000, guid: 7c82b6ff36e50024e893b274737e8af9, type: 2}
   - {fileID: 11400000, guid: f39e81def6c7f404396a98d92a097733, type: 2}
   - {fileID: 11400000, guid: fd5c51df3a5fc8d4ebae696bfb7bd95e, type: 2}
   - {fileID: 11400000, guid: 95eff55d9d42b4f41be53f97710d2aea, type: 2}

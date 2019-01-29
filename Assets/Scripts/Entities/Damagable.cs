@@ -9,6 +9,7 @@ namespace Entities
     public class Damagable : MonoBehaviour
     {
         [SerializeField] private SpriteBlinkAnimation _animation;
+        [SerializeField] private GameObject customObjectToDestroy;
         [SerializeField] private float health;
         public float Health { get { return health; } }
 
@@ -28,7 +29,13 @@ namespace Entities
 
             OnHealthChanged(health, maxHealth);
 
-            if (health <= 0f) Destroy(gameObject);
+            if (health <= 0f) Death();
+        }
+
+        public void Death()
+        {
+            if (customObjectToDestroy == null) Destroy(gameObject);
+            else Destroy(customObjectToDestroy);
         }
     }
 }
