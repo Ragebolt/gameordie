@@ -42,7 +42,8 @@ public static class PrefabsContainer {
 
     public static string GetTag(int _id) {
         if (_id < 0) return "<none>";
-        return prefabs.First(t => t.id == _id).tag;
+        var p = prefabs.FirstOrDefault(t => t.id == _id);
+        return (p == null) ? "<error>" : p.tag;
     }
 
     public static int[] GetIDs() {

@@ -38,7 +38,7 @@ MonoBehaviour:
     useCustomConfig: 0
     config: '{"weaponRotationSpeed":1.0,"shootingRate":0.0,"bulletsSettings":{"startSpeed":0.0,"damage":0.0,"destroyCondition":0,"contactsToDestroy":0,"destroyEffect":{"instanceID":0}}}'
   - prefabData:
-      id: 3
+      id: 12
     spawnRect:
       x: 3
       y: 2

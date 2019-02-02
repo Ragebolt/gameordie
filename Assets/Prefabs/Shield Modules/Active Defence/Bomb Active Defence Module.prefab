@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 457840735410887338}
   - component: {fileID: 5476784781454779516}
   m_Layer: 10
-  m_Name: Default Active Defence Module
+  m_Name: Bomb Active Defence Module
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,13 +254,14 @@ MonoBehaviour:
   activeTime: 0.1
   activeDefenceZone: {fileID: 4572537823237019546}
   activeDefenceAnimation: {fileID: 3514772442882406044}
-  useNewBulletSettings: 0
+  useNewBulletSettings: 1
   newBulletSettings:
-    startSpeed: 18
+    startSpeed: 10
     damage: 1
     destroyCondition: 0
     contactsToDestroy: 0
-    destroyEffect: {fileID: 0}
+    destroyEffect: {fileID: 5211215380870666036, guid: b54431e7ac45dc4479b8b09aa53e701d,
+      type: 3}
   speedMultiply:
     serializedVersion: 2
     m_Curve:
