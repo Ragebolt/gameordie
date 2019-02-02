@@ -69,8 +69,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5476784781454779516, guid: 371b8433143c6a546bb276e2e8e06257,
         type: 3}
-      propertyPath: speedMultiply
+      propertyPath: speedMultiply.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476784781454779516, guid: 371b8433143c6a546bb276e2e8e06257,
+        type: 3}
+      propertyPath: speedMultiply.m_Curve.Array.data[0].value
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476784781454779516, guid: 371b8433143c6a546bb276e2e8e06257,
+        type: 3}
+      propertyPath: speedMultiply.m_Curve.Array.data[1].value
+      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 371b8433143c6a546bb276e2e8e06257, type: 3}

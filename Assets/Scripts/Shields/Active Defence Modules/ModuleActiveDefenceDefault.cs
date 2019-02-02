@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Damage;
+using Curve = UnityEngine.AnimationCurve;
 
 namespace Shields.Modules
 {
@@ -11,19 +12,26 @@ namespace Shields.Modules
         [SerializeField] protected bool useNewBulletSettings = false;
         [SerializeField] protected Bullet.Settings newBulletSettings;
 
-        [SerializeField] protected float speedMultiply = 1f;
-        [SerializeField] protected float damageMultiply = 1f;
+        [SerializeField] protected Curve speedMultiply = Curve.Constant(0f, 1f, 1f);
+        [SerializeField] protected Curve damageMultiply = Curve.Constant(0f, 1f, 1f);
+
+        [SerializeField] protected float maxDistance = 1f;
 
 
         protected override void OnBullet(Transform t)
         {
             Bullet bullet = t.GetComponent<Bullet>();
 
-            bullet.Rigidbody.velocity = newBulletSettings.startSpeed * Direction;
             if (useNewBulletSettings) bullet.settings = newBulletSettings;
-            bullet.settings.startSpeed *= speedMultiply;
-            bullet.settings.damage *= damageMultiply;
+
+            float distance = Vector3.Distance(ShieldRoot.position, t.position);
+            distance /= maxDistance;
+
+            bullet.settings.startSpeed *= speedMultiply.Evaluate(distance);
+            bullet.settings.damage *= speedMultiply.Evaluate(distance);
             bullet.Creator = null;
+
+            bullet.Rigidbody.velocity = bullet.StartSpeed * Direction;
 
             OnAnyBullet();
         }

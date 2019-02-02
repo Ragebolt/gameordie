@@ -112,7 +112,9 @@ namespace Generation
                 var enemies = enemiesSpawnPattern.Generate(roomSize, roomsList[i].position, this);
                 foreach (var enemy in enemies)
                 {
-                    var enemiesComponents = enemy.GetComponents<Enemy>();
+                    List<Enemy> enemiesComponents = new List<Enemy>();
+                    enemy.GetComponents(enemiesComponents);
+                    enemy.transform.GetComponentsInChildren(enemiesComponents);
                     foreach (var e in enemiesComponents)
                     {
                         e.Room = roomsList[i];

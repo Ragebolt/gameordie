@@ -24,6 +24,7 @@ namespace Entities
         void Start()
         {
             target = PlayerController.Instance.Origin;
+            transform.parent.rotation = Quaternion.identity;
         }
 
 
@@ -39,9 +40,7 @@ namespace Entities
             Vector3 dir = targetPos - transform.position;
             dir.Normalize();
 
-            transform.up = dir;
-
-            transform.position += dir * config.moveSpeed * Time.deltaTime;
+            rb.position += (Vector2)(dir * config.moveSpeed * Time.fixedDeltaTime);
         }
 
 

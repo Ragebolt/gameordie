@@ -26,7 +26,7 @@ MonoBehaviour:
     useCustomConfig: 0
     config: 
   - prefabData:
-      id: -1
+      id: 12
     spawnRect:
       x: 4
       y: 4
