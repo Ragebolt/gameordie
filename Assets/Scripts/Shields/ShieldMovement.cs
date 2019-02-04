@@ -7,6 +7,7 @@ namespace Shields
 {
     public class ShieldMovement : MonoBehaviour
     {
+        [HelpBox("Компонент, визуально и технически двигающий щит")]
         [SerializeField] private Animator animator;
         [SerializeField] private new SpriteRenderer renderer;
 

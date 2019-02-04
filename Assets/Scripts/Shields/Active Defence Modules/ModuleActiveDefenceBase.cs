@@ -10,7 +10,7 @@ namespace Shields.Modules
     {
         public event System.Action<float> OnChargeGenerated = (f) => { };
 
-        [Header("Base")]
+        [HelpBox("Модуль щита, отвечающий за активное отбивание снарядов (на ЛКМ) при попадании в зону")]
         [SerializeField] private float chargePerBullet = 0.02f;
         [SerializeField] protected float activeTime = 0.1f;
         [SerializeField] private ObservedZone activeDefenceZone;
@@ -22,7 +22,7 @@ namespace Shields.Modules
 
         private void Start()
         {
-            InputController.OnActiveDefenceButton += StartActiveDefence;
+            GetAnotherModules();
         }
 
 
@@ -71,6 +71,13 @@ namespace Shields.Modules
         protected void OnAnyBullet()
         {
             OnChargeGenerated(chargePerBullet);
+        }
+
+
+        protected override void OnModuleGetted(ShieldModule module)
+        {
+            ModuleReflectionBase moduleReflection = module as ModuleReflectionBase;
+            if (moduleReflection != null) moduleReflection.OnActivate += StartActiveDefence;
         }
     }
 }

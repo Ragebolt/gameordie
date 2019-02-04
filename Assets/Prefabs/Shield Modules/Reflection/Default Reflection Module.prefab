@@ -92,4 +92,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f3994f8b0e549c49b91922aa40e9f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargePerBullet: 0.01
+  specialChargePerBullet: 0.01
+  collider: {fileID: 1480529823098354221}
+  charge: 1
+  maxCharge: 1
+  chargeSpendPerSecond: 0.15
+  chargeSpendPerBullet: 0.05
+  chargeFillPerSecond: 0.25

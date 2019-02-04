@@ -8,7 +8,8 @@ using Entities;
 /// </summary>
 public class InputController : MonoBehaviour
 {
-    public static event System.Action OnActiveDefenceButton = () => { };
+    public static event System.Action OnShieldActivateButton = () => { };
+    public static event System.Action OnShieldDisableButton = () => { };
     public static event System.Action OnSuperAbilityButton = () => { };
 
     public static Vector3 Direction { get; private set; }
@@ -16,7 +17,8 @@ public class InputController : MonoBehaviour
 
     public static InputController Instance { get; private set; }
 
-    [SerializeField] private KeyCode activeDefenceKey = KeyCode.Mouse0;
+    [HelpBox("Контроллер управления. Использовать только 1 экземляр в сцене!")]
+    [SerializeField] private KeyCode activateShieldKey = KeyCode.Mouse0;
     [SerializeField] private KeyCode superAbilityKey = KeyCode.Mouse1;
 
 
@@ -27,7 +29,9 @@ public class InputController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(activeDefenceKey)) OnActiveDefenceButton();
+        if (Input.GetKeyDown(activateShieldKey)) OnShieldActivateButton();
+        if (Input.GetKeyUp(activateShieldKey)) OnShieldDisableButton();
+
         if (Input.GetKeyDown(superAbilityKey)) OnSuperAbilityButton();
 
         CalculateDirection();
