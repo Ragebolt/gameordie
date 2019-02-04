@@ -9,25 +9,17 @@ namespace Entities
     {
         [SerializeField] private GameObject laserPrefab;
 
-        public float angle;
         public float laserDamagePerSecond = 1f;
-        public float laserDamageRate = 10f;
 
-        private Laser laser;
-
+        private LaserPermanent laser;
         private bool isDisabled = false;
 
 
         void Start()
         {
-            laser = Instantiate(laserPrefab, Vector3.zero, Quaternion.identity).GetComponent<Laser>();
+            laser = Instantiate(laserPrefab, transform.position, transform.rotation, transform).GetComponent<LaserPermanent>();
 
-            laser.StartPoint = transform.position;
-
-            laser.SetToDirection(Quaternion.Euler(0f, 0f, transform.eulerAngles.z + angle) * Vector3.up);
-
-            laser.Damage = laserDamagePerSecond / laserDamageRate;
-            laser.LoopDamageRate = laserDamageRate;
+            laser.config = new ProjectiveBase.Config(laserDamagePerSecond);
             laser.Creator = gameObject;
 
             laser.StartLoopDamage();

@@ -42,6 +42,8 @@ namespace Shields.Modules
         private void Start()
         {
             shieldRenderer = ShieldRoot.GetComponent<ShieldMovement>().Renderer;
+            shieldRenderer.enabled = false;
+            collider.enabled = false;
 
             InputController.OnShieldActivateButton += () => { if (CanUserControl) Activate(); };
             InputController.OnShieldDisableButton += () => { if (CanUserControl) Disable(); };

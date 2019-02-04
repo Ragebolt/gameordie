@@ -22,13 +22,14 @@ public class HelpBoxDrawer : PropertyDrawer
         position.y += boxRect.height + propertyOffset;
         position.height -= helpBox.height + propertyOffset;
 
-        EditorGUI.PropertyField(position, property, label);
+        EditorGUI.PropertyField(position, property, label, true);
+
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
         HelpBoxAttribute helpBox = attribute as HelpBoxAttribute;
 
-        return base.GetPropertyHeight(property, label) + helpBox.height + propertyOffset;
+        return helpBox.height + propertyOffset + EditorGUI.GetPropertyHeight(property, label, true); ;
     }
 }

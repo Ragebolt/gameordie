@@ -9,24 +9,11 @@ namespace Damage
 {
     public class Bullet : ProjectiveBase
     {
+        [SerializeField] private Rigidbody2D rb;
         public Rigidbody2D Rigidbody { get { return rb; } }
 
-        public float StartSpeed
-        {
-            get { return settings.startSpeed; }
-            set { settings.startSpeed = value; }
-        }
-
-        private float speed;
-
-        public float Acceleration { get; set; }
-        public float RotateSpeed { get; set; }
-
-        public override float Damage
-        {
-            get { return settings.damage; }
-            set { settings.damage = value; }
-        }
+        [SerializeField] private Gradient gradient;
+        [SerializeField] private new SpriteRenderer renderer;
 
         private int contactsCounter;
         private int ContactsCounter
@@ -35,23 +22,13 @@ namespace Damage
             set
             {
                 contactsCounter = value;
-                if (value >= settings.contactsToDestroy + 1) Destroy(gameObject);
-                renderer.color = gradient.Evaluate((float)contactsCounter / (settings.contactsToDestroy));
+                if (value >= config.ContactsToDestroy + 1) Destroy(gameObject);
+                renderer.color = gradient.Evaluate((float)contactsCounter / (config.ContactsToDestroy));
             }
         }
 
-        public Gradient gradient;
+        private Vector2Int roomCoords;
 
-        public Settings settings;
-        [System.Serializable]
-        public struct Settings
-        {
-            public float startSpeed;
-            public float damage;
-            public DestroyCondition destroyCondition;
-            public int contactsToDestroy;
-            public GameObject destroyEffect;
-        }
 
         public enum DestroyCondition
         {
@@ -61,29 +38,19 @@ namespace Damage
             HitCount
         }
 
-        private Vector2Int roomCoords;
-
-        [SerializeField] private new SpriteRenderer renderer;
-        [SerializeField] private Rigidbody2D rb;
-
 
 
         void Start()
         {
-            speed = StartSpeed;
-
             ContactsCounter = 0;
 
             roomCoords = Generator.Instance.GlobalToLocal(transform.position);
 
-            rb.velocity = transform.up * speed;
+            rb.velocity = transform.up * config.Speed;
         }
 
         void Update()
         {
-            //speed += Acceleration * Time.deltaTime;
-            //transform.position += transform.up * speed * Time.deltaTime * 10f;
-
             if (roomCoords != Generator.Instance.GlobalToLocal(transform.position)) Destroy(gameObject);
         }
 
@@ -105,18 +72,18 @@ namespace Damage
             Damagable damagable = collision.collider.GetComponent<Damagable>();
             if (damagable != null)
             {
-                damagable.GetDamage(Damage);
-                if (settings.destroyCondition == DestroyCondition.DamagableHit) Destroy(gameObject);
+                damagable.GetDamage(config.Damage);
+                if (config.DestroyCondition == DestroyCondition.DamagableHit) Destroy(gameObject);
             }
 
-            if (settings.destroyCondition == DestroyCondition.NoShieldHit) Destroy(gameObject);
+            if (config.DestroyCondition == DestroyCondition.NoShieldHit) Destroy(gameObject);
 
             OnContact();
         }
 
         public void OnContact()
         {
-            switch (settings.destroyCondition)
+            switch (config.DestroyCondition)
             {
                 case DestroyCondition.AnyHit:
                     Destroy(gameObject);
@@ -131,7 +98,7 @@ namespace Damage
 
         private void OnDestroy()
         {
-            if (settings.destroyEffect != null) Instantiate(settings.destroyEffect, transform.position, Quaternion.identity);
+            if (config.DestroyEffect != null) Instantiate(config.DestroyEffect, transform.position, Quaternion.identity);
         }
     }
 }

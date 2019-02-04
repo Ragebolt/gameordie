@@ -95,11 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd751fe46fe43a4c8ed7af082c472e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserPrefab: {fileID: 1863242475760600, guid: c901c392e1617884ea493f06886f3255,
+  laserPrefab: {fileID: 1863242475760600, guid: 96a5931bb54b90b4e8d330f64f1d60f7,
     type: 3}
-  angle: 0
   laserDamagePerSecond: 10
-  laserDamageRate: 30
 --- !u!114 &5883919655478311451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animation: {fileID: 2042403255642483985}
+  customObjectToDestroy: {fileID: 0}
   health: 8
   maxHealth: 0
 --- !u!61 &9040297792442089253

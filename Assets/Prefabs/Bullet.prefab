@@ -110,6 +110,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf937c66baef073448b36168c9b5a55e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  config:
+    damage: 1
+    speed: 10
+    destroyCondition: 0
+    contactsToDestroy: 0
+    destroyEffect: {fileID: 0}
+  rb: {fileID: 50318040327667032}
   gradient:
     serializedVersion: 2
     key0: {r: 0, g: 1, b: 0, a: 1}
@@ -139,14 +146,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  settings:
-    startSpeed: 0
-    damage: 0
-    destroyCondition: 0
-    contactsToDestroy: 0
-    destroyEffect: {fileID: 0}
   renderer: {fileID: 212561247721788582}
-  rb: {fileID: 50318040327667032}
 --- !u!50 &50318040327667032
 Rigidbody2D:
   serializedVersion: 4

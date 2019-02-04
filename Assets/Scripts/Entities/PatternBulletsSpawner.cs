@@ -14,10 +14,8 @@ namespace Entities
         [System.Serializable]
         public class Pattern
         {
-            public GameObject bulletPrefab;
+            public GameObject projectivePrefab;
             public int bulletsPerShoot;
-            public float bulletAcceleration;
-            public float bulletRotateSpeed;
             public float shootingRate = 1f;
             public float angleIncrement = 2f;
 
@@ -26,7 +24,7 @@ namespace Entities
             public int iterationsToReset = 1;
 
             [Space]
-            public Bullet.Settings bulletsSettings;
+            public ProjectiveBase.Config projectiveConfig;
 
             private bool rightSpawn = true; // Спавнить пулю справа или слева
             private int lastShootId = 0;
@@ -67,14 +65,12 @@ namespace Entities
 
                 float angle = side * ((index + 1) / 2) * angleIncrement + iteration * angleIncrementIterations;
 
-                var bullet = Instantiate(bulletPrefab, transform.position + (Quaternion.Euler(0f, 0f, angle) * transform.up * Spawner.safeSpawnRadius), Quaternion.identity);
+                var bullet = Instantiate(projectivePrefab, transform.position + (Quaternion.Euler(0f, 0f, angle) * transform.up * Spawner.safeSpawnRadius), Quaternion.identity);
 
-                Bullet ctrl = bullet.GetComponent<Bullet>();
+                ProjectiveBase ctrl = bullet.GetComponent<ProjectiveBase>();
 
-                ctrl.Acceleration = bulletAcceleration;
-                ctrl.RotateSpeed = bulletRotateSpeed;
                 ctrl.Creator = transform.gameObject;
-                ctrl.settings = bulletsSettings;
+                ctrl.config = projectiveConfig;
 
                 bullet.transform.Rotate(0f, 0f, angle);
 

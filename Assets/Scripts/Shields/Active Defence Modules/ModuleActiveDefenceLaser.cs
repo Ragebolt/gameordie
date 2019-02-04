@@ -17,7 +17,7 @@ namespace Shields.Modules
             Vector3 pos = t.position;
             Destroy(t.gameObject);
 
-            Laser.CreateOneshotLaser(laserPrefabData.Prefab, pos, Direction, damage);
+            LaserShoot.Spawn(laserPrefabData.Prefab, pos, Quaternion.LookRotation(transform.forward, transform.up), damage);
 
             OnAnyBullet();
         }

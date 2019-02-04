@@ -112,5 +112,10 @@ PrefabInstance:
       propertyPath: config.bulletsSettings.damage
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 441206988826957596, guid: 995a26a8344ee2e41b3981952058db4e,
+        type: 3}
+      propertyPath: config.projectiveConfig.damage
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 995a26a8344ee2e41b3981952058db4e, type: 3}

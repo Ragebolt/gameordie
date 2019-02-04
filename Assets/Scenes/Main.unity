@@ -745,7 +745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1912203083618624, guid: aa0b35ea6cf34ac48b0e6cd80a469c16, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4241047830956404, guid: aa0b35ea6cf34ac48b0e6cd80a469c16, type: 3}
       propertyPath: m_LocalPosition.x
@@ -807,6 +807,12 @@ PrefabInstance:
       propertyPath: config.bulletsSettings.destroyCondition
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114896957654657342, guid: aa0b35ea6cf34ac48b0e6cd80a469c16,
+        type: 3}
+      propertyPath: projectivePrefab
+      value: 
+      objectReference: {fileID: 1863242475760600, guid: c901c392e1617884ea493f06886f3255,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa0b35ea6cf34ac48b0e6cd80a469c16, type: 3}
 --- !u!1 &1913958700

@@ -25,7 +25,7 @@ namespace Shields.Modules
                 side = -side;
             }
 
-            bullet.Rigidbody.velocity = bullet.StartSpeed * Direction;
+            bullet.Rigidbody.velocity = bullet.config.Speed * Direction;
 
             OnAnyBullet();
         }
