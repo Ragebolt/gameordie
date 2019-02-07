@@ -8,6 +8,7 @@ namespace Entities
 {
     public class PlayerController : MonoBehaviour
     {
+        [HelpBox("Основное поведение игрока")]
         [SerializeField] private float speed;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private new SpriteRenderer renderer;

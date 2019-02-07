@@ -8,6 +8,7 @@ namespace Entities
 {
     public class Damagable : MonoBehaviour
     {
+        [HelpBox("Поведение сущности, позволяющее получать урон и умирать")]
         [SerializeField] private SpriteBlinkAnimation _animation;
         [SerializeField] private GameObject customObjectToDestroy;
         [SerializeField] private float health;

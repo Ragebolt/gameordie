@@ -97,20 +97,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   safeSpawnRadius: 0.5
   patterns:
-  - bulletPrefab: {fileID: 1002815308598508, guid: 3570aa8a99590da43900745aba4f3178,
+  - projectivePrefab: {fileID: 1002815308598508, guid: 3570aa8a99590da43900745aba4f3178,
       type: 3}
     bulletsPerShoot: 4
-    bulletAcceleration: 0
-    bulletRotateSpeed: 0
     shootingRate: 2
     angleIncrement: 90
     angleIncrementIterations: 45
     iterationsToReset: 2
-    bulletsSettings:
-      startSpeed: 11
+    projectiveConfig:
       damage: 1
-      destroyCondition: 2
-      contactsToDestroy: 2
+      speed: 6
+      destroyCondition: 3
+      contactsToDestroy: 1
       destroyEffect: {fileID: 0}
 --- !u!114 &6433271518115603776
 MonoBehaviour:
@@ -125,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animation: {fileID: 3810737890376900762}
+  customObjectToDestroy: {fileID: 0}
   health: 3
   maxHealth: 0
 --- !u!61 &9061704518765321824

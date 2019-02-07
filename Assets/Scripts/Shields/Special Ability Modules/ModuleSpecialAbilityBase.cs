@@ -9,6 +9,7 @@ namespace Shields.Modules
     {
         public event System.Action<float, float> OnChargeChanged = (f1, f2) => { };
 
+        [HelpBox("Модуль щита, вызывающий специальную способность при нажатии на ПКМ и расходующий специальный заряд")]
         [SerializeField] private float charge = 0f;
         [SerializeField] private float maxCharge = 1f;
         [SerializeField] private float chargeCost = 1f;
@@ -26,10 +27,10 @@ namespace Shields.Modules
         
 
 
-        private void Start()
+        protected virtual void Start()
         {
             InputController.OnSuperAbilityButton += StartAbility;
-            OnChargeChanged += UIController.ChargeBar.Refresh;
+            OnChargeChanged += UIController.SpecialChargeBar.Refresh;
             Charge = charge;
 
             GetAnotherModules();

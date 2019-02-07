@@ -10,12 +10,11 @@ using Damage;
 
 namespace Entities
 {
-
     public class Turret : Enemy, IConfig
     {
         [SerializeField] private Transform weapon;
         [SerializeField] private Transform shootingPoint;
-        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private GameObject projectivePrefab;
 
         [Space]
         [SerializeField] private Configuration config;
@@ -24,7 +23,7 @@ namespace Entities
         {
             public float weaponRotationSpeed;
             public float shootingRate;
-            public Bullet.Settings bulletsSettings;
+            public ProjectiveBase.Config projectiveConfig;
         }
 
         [Space]
@@ -116,12 +115,12 @@ namespace Entities
 
         private void Shoot()
         {
-            var bullet = Instantiate(bulletPrefab, shootingPoint.position, weapon.rotation);
+            var bullet = Instantiate(projectivePrefab, shootingPoint.position, weapon.rotation);
 
-            Bullet controller = bullet.GetComponent<Bullet>();
+            ProjectiveBase controller = bullet.GetComponent<ProjectiveBase>();
 
             controller.Creator = gameObject;
-            controller.settings = config.bulletsSettings;
+            controller.config = config.projectiveConfig;
         }
 
 

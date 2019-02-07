@@ -20,7 +20,17 @@ namespace Shields.Modules
             Arrive
         }
 
-        private List<GameObject> objectsToDisable = new List<GameObject>();
+        private ModuleReflectionBase moduleReflection;
+        private SpriteRenderer shieldRenderer;
+
+
+        protected override void Start()
+        {
+            base.Start();
+
+            GetAnotherModules();
+            shieldRenderer = ShieldRoot.GetComponent<ShieldMovement>().Renderer;
+        }
 
 
         protected override void OnStartAbility()
@@ -34,8 +44,9 @@ namespace Shields.Modules
 
             this.InvokeWhile(AbilityUpdate, () => { return state != ShieldState.InHands; });
 
-            foreach (var obj in objectsToDisable) obj.SetActive(false);
-            ShieldRoot.GetComponent<ShieldMovement>().Renderer.gameObject.SetActive(false);
+            moduleReflection.CanUserControl = false;
+            moduleReflection.Disable();
+            shieldRenderer.enabled = false;
         }
 
         protected override bool CanStartAbility()
@@ -57,8 +68,8 @@ namespace Shields.Modules
                 {
                     state = ShieldState.InHands;
 
-                    foreach (var obj in objectsToDisable) obj.SetActive(true);
-                    ShieldRoot.GetComponent<ShieldMovement>().Renderer.gameObject.SetActive(true);
+                    moduleReflection.CanUserControl = true;
+                    shieldRenderer.enabled = true;
 
                     Destroy(thrownShield.gameObject);
                 }
@@ -76,14 +87,8 @@ namespace Shields.Modules
         {
             base.OnModuleGetted(module);
 
-            if (module is ModuleReflectionBase)
-            {
-                objectsToDisable.Add(module.gameObject);
-            }
-            else if (module is ModuleActiveDefenceBase)
-            {
-                objectsToDisable.Add(module.gameObject);
-            }
+            var moduleReflection = module as ModuleReflectionBase;
+            if (moduleReflection != null) this.moduleReflection = moduleReflection;
         }
     }
 }
