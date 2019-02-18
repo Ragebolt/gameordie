@@ -1,17 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Entities
 {
     public class ObservedZone : MonoBehaviour
     {
-        public event System.Action<Transform> OnEnter = t => { };
-        public event System.Action<Transform> OnExit = t => { };
-
+        [HelpBox("Специальное поведение, необходимое для отслеживания объектов в зоне")]
+        public bool callOnInsideEvent = false;
         public List<string> tags = new List<string>();
 
+        [Space]
+        public ZoneEvent OnEnter = new ZoneEvent();
+        public ZoneEvent OnInside = new ZoneEvent();
+        public ZoneEvent OnExit = new ZoneEvent();
+
+
         private List<Transform> objectsInRange = new List<Transform>();
+
+
+        private void Update()
+        {
+            if (callOnInsideEvent)
+            {
+                for (int i = 0; i < objectsInRange.Count; i++)
+                {
+                    if (CheckObject(objectsInRange[i]))
+                    {
+                        OnInside.Invoke(objectsInRange[i]);
+                    }
+                    else
+                    {
+                        objectsInRange.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+        }
 
 
         public Transform GetObject()
@@ -57,7 +83,7 @@ namespace Entities
             if (CheckObject(obj))
             {
                 objectsInRange.Add(obj);
-                OnEnter(obj);
+                OnEnter.Invoke(obj);
             }
         }
 
@@ -67,7 +93,7 @@ namespace Entities
             if (CheckObject(obj) && objectsInRange.Contains(obj))
             {
                 objectsInRange.Remove(obj);
-                OnExit(obj);
+                OnExit.Invoke(obj);
             }
         }
 
@@ -81,5 +107,9 @@ namespace Entities
             }
             return false;
         }
+
+
+        [System.Serializable]
+        public class ZoneEvent : UnityEvent<Transform> { }
     }
 }

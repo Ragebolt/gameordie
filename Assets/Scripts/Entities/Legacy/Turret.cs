@@ -8,10 +8,11 @@ using UnityEditor;
 #endif
 using Damage;
 
-namespace Entities
+namespace Entities.Legacy
 {
     public class Turret : Enemy, IConfig
     {
+        [HelpBox("[Устаревшее] Поведение турели")]
         [SerializeField] private Transform weapon;
         [SerializeField] private Transform shootingPoint;
         [SerializeField] private GameObject projectivePrefab;

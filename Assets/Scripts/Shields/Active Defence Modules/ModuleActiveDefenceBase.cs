@@ -34,7 +34,7 @@ namespace Shields.Modules
             if (isActive || !gameObject.activeSelf) return;
 
             this.InvokeDelegate(StopActiveDefence, activeTime);
-            activeDefenceZone.OnEnter += OnBullet;
+            activeDefenceZone.OnEnter.AddListener(OnBullet);
             activeDefenceAnimation.TryBlink();
 
             foreach (var obj in activeDefenceZone.GetObjects()) OnBullet(obj);
@@ -53,7 +53,7 @@ namespace Shields.Modules
         /// </summary>
         public void StopActiveDefence()
         {
-            activeDefenceZone.OnEnter -= OnBullet;
+            activeDefenceZone.OnEnter.RemoveListener(OnBullet);
             isActive = false;
         }
 

@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.Audio;
 using Damage;
 
-namespace Entities
+namespace Entities.Legacy
 {
     public class PatternBulletsSpawner : Enemy
     {
+        [HelpBox("[Устаревшее] Поведение генератора пуль по заданному паттерну")]
         public float safeSpawnRadius;
         public Pattern[] patterns;
 
