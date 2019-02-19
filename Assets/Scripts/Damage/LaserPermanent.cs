@@ -5,7 +5,7 @@ namespace Damage
 {
     public class LaserPermanent : LaserBase
     {
-        public const float LoopDamageRate = 10f;
+        public const float LoopDamageRate = 25f;
 
         protected bool isDisabled = false;
 

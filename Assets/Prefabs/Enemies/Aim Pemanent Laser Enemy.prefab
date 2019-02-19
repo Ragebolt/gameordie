@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4885889754868236}
+  - component: {fileID: 8040954944870523922}
+  - component: {fileID: 6604650128999651843}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -32,6 +34,43 @@ Transform:
   m_Father: {fileID: 4241047830956404}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8040954944870523922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053340917179904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd751fe46fe43a4c8ed7af082c472e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laserPrefab: {fileID: 1863242475760600, guid: 96a5931bb54b90b4e8d330f64f1d60f7,
+    type: 3}
+  lasersCount: 1
+  lasersOffset: 0
+  laserDamagePerSecond: 1
+  customCreator: {fileID: 1912203083618624}
+--- !u!114 &6604650128999651843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053340917179904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295f3a86e8b466b42826dd8e0d2d56c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 1
+  rotationSpeed: 10
+  targetInFrontEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Entities.EnemyModules.Rotation+TargetInFrontEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &1200687832599116
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,11 +268,10 @@ GameObject:
   - component: {fileID: 4241047830956404}
   - component: {fileID: 212533172182903470}
   - component: {fileID: 61604527612984214}
-  - component: {fileID: 114896957654657342}
   - component: {fileID: 5020070422050621745}
   - component: {fileID: 7710360972707690082}
   m_Layer: 0
-  m_Name: Turret
+  m_Name: Aim Pemanent Laser Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -293,7 +331,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 84
   m_Sprite: {fileID: 21300000, guid: 16848832d169b4242a025ed68abce402, type: 3}
-  m_Color: {r: 0.745283, g: 0.7188666, b: 0.48865256, a: 1}
+  m_Color: {r: 0.6320754, g: 0.32498217, b: 0.33443123, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -329,32 +367,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114896957654657342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1912203083618624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f258ec4a61d3c9b4cb53d49127b872e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon: {fileID: 4885889754868236}
-  shootingPoint: {fileID: 4082464437825670}
-  projectivePrefab: {fileID: 1002815308598508, guid: 3570aa8a99590da43900745aba4f3178,
-    type: 3}
-  config:
-    weaponRotationSpeed: 300
-    shootingRate: 1
-    projectiveConfig:
-      damage: 1
-      speed: 10
-      destroyCondition: 2
-      contactsToDestroy: 0
-      destroyEffect: {fileID: 0}
-  viewZone: {fileID: 114334399743605916}
 --- !u!114 &5020070422050621745
 MonoBehaviour:
   m_ObjectHideFlags: 0

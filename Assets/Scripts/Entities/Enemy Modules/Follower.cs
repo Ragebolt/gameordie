@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using Generation;
 using UnityEngine;
 
-namespace Entities
+namespace Entities.EnemyModules
 {
+    [AddComponentMenu("Enemy Modules/Follower")]
     public class Follower : Enemy
     {
-        [SerializeField] private ObservedZone viewZone;
+        [HelpBox("Поведение врага, заставляющее его преследовать игрока")]
         [SerializeField] private Rigidbody2D rb;
+        [SerializeField] private float stopDistance = 0f;
+        [SerializeField] private bool radialMovementInRande = false;
 
         private Transform target;
         private bool isDisabled = false;
@@ -24,13 +27,17 @@ namespace Entities
         void Start()
         {
             target = PlayerController.Instance.Origin;
-            transform.parent.rotation = Quaternion.identity;
+            if (transform.parent != null) transform.parent.rotation = Quaternion.identity;
         }
 
 
-        void Update()
+        void FixedUpdate()
         {
-            if (!isDisabled) Move();
+            if (!isDisabled)
+            {
+                if ((target.position - transform.position).sqrMagnitude > stopDistance * stopDistance) Move();
+                else if (radialMovementInRande) RadialMove();
+            }
         }
 
         private void Move()
@@ -41,6 +48,15 @@ namespace Entities
             dir.Normalize();
 
             rb.position += (Vector2)(dir * config.moveSpeed * Time.fixedDeltaTime);
+        }
+
+        private void RadialMove()
+        {
+            Vector3 targetPos = target.position; targetPos.z = 0f;
+            Vector3 dir = targetPos - transform.position;
+            Vector3 radialDir = Quaternion.Euler(0f, 0f, 90f) * dir;
+
+            rb.position += (Vector2)(radialDir.normalized * config.moveSpeed * Time.fixedDeltaTime);
         }
 
 
