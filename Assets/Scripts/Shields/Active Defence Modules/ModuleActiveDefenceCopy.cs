@@ -15,12 +15,15 @@ namespace Shields.Modules
         protected override void OnBullet(Transform t)
         {
             Bullet bullet = t.GetComponent<Bullet>();
+            if (bullet.IsCopy) return;
+            bullet.IsCopy = true;
 
             int side = 1;
             for (int i = 0; i < copiesCount; i++)
             {
                 Bullet b = Instantiate(bullet.gameObject, t.position, Quaternion.identity).GetComponent<Bullet>();
                 b.transform.up = (Quaternion.Euler(0f, 0f, ((i / 2) + 1) * side * angleOffset) * Direction);
+                b.IsCopy = true;
 
                 side = -side;
             }
