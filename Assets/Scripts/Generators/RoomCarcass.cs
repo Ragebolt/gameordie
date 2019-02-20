@@ -21,7 +21,7 @@ namespace Generation
             var door = Instantiate(doorPrefab, dbTransform.parent);
             var dTransform = door.transform;
             dTransform.localPosition = dbTransform.localPosition;
-            dTransform.up = (Vector2)Generator.DirectionToVector(direction);
+            //dTransform.up = (Vector2)Generator.DirectionToVector(direction);
             doors[direction] = door.GetComponent<Animator>();
         }
 

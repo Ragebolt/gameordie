@@ -69,26 +69,5 @@ namespace Entities.EnemyModules
         {
             isDisabled = false;
         }
-
-
-        public string GetConfig()
-        {
-            return JsonUtility.ToJson(config);
-        }
-
-        public void SetConfig(string value)
-        {
-            config = JsonUtility.FromJson<Configuration>(value);
-        }
-
-        public System.Type GetJsonType()
-        {
-            return typeof(Configuration);
-        }
-
-        public RoomObject GetRoomObject()
-        {
-            return new RoomObjectFollower();
-        }
     }
 }

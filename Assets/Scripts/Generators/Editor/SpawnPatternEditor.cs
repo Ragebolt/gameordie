@@ -11,18 +11,20 @@ public class SpawnPatternEditor : Editor {
     private       SerializedProperty objectsArray;
     private       ReorderableList    reorderableList;
     private       float              elementHeight;
-    public static Generator          generator;
     private       SerializedObject   thisSO;
     private List<float> listElementsHeight;   
 
     private static float lengthAngleRays    = 1f;
-    private static int   howMany            = 10;
-    private static bool  showEveryDirection = true;
+    private static int   howMany            = 5;
+    private static bool  showEveryDirection = false;
+    private static Vector2 editorNormalisedRoomSize = new Vector2(10f, 10f);
+    private static bool  showEditorSettings = false;
+    private static bool  isNormalisedMode   = true;
 
     private SerializedProperty dataP;
 
     private const int       GIZMO_HANDLE_OFFSET = 10000;
-    private       Vector3   scale;
+    private       Vector2   scale;
     private       Vector3   pos;
     private       float[]   rotV    = new float[3];
     private       Vector3[] rot     = new Vector3[3];
@@ -56,36 +58,57 @@ public class SpawnPatternEditor : Editor {
 
         thisSO.Update();
 
-        generator = (Generator) EditorGUILayout.ObjectField(generator, typeof(Generator), true);
+        //generator = (Generator) EditorGUILayout.ObjectField(generator, typeof(Generator), true);
 
-        lengthAngleRays = EditorGUILayout.Slider("Length", lengthAngleRays, 0.5f, 3f);
-        howMany         = EditorGUILayout.IntSlider("###", howMany, 2, 15);
-        showEveryDirection = EditorGUILayout.Toggle("Show every direction", showEveryDirection);
+        string buttonText = showEditorSettings ? "Hide editor settings" : "Show editor settings";
+        if (GUILayout.Button(buttonText)) showEditorSettings = !showEditorSettings;
+
+        if (showEditorSettings)
+        {
+            lengthAngleRays = EditorGUILayout.Slider("Length", lengthAngleRays, 0.5f, 3f);
+            howMany = EditorGUILayout.IntSlider("###", howMany, 2, 15);
+            showEveryDirection = EditorGUILayout.Toggle("Show every direction", showEveryDirection);
+            //editorNormalisedRoomSize = EditorGUILayout.Vector2Field("Editor Normalised Room Size", editorNormalisedRoomSize);
+        }
+
+        GUILayout.BeginHorizontal();
+        var leftButtonStyle = new GUIStyle(EditorStyles.miniButtonLeft); if (isNormalisedMode) leftButtonStyle.normal = leftButtonStyle.active;
+        if (GUILayout.Button("Normalised Mode", leftButtonStyle)) isNormalisedMode = true;
+
+        var rightButtonStyle = new GUIStyle(EditorStyles.miniButtonRight); if (!isNormalisedMode) rightButtonStyle.normal = rightButtonStyle.active;
+        if (GUILayout.Button("Integer Mode", rightButtonStyle)) isNormalisedMode = false;
+        GUILayout.EndHorizontal();
 
         thisSO.ApplyModifiedProperties();
 
-        if (generator == null) {
-            focused = -1;
-            return;
-        }
-        sizeWorld = generator.roomSize.GetVector3();
 
         serializedObject.Update();
+
+        //if (!isNormalisedMode)
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("editorRoomSize"), new GUIContent("Editor room size"));
+
+        sizeWorld = (Vector2)spawnPattern.editorRoomSize;
+
+        var sizes = serializedObject.FindProperty("sizes");
+        EditorGUILayout.PropertyField(sizes, new GUIContent("Generator room sizes"), true);
+
         if (listElementsHeight == null) listElementsHeight = new List<float>();
         for (int i = listElementsHeight.Count; i < objectsArray.arraySize; i++)
         {
             listElementsHeight.Add(EditorGUIUtility.singleLineHeight * 10f);
         }
         reorderableList.DoLayoutList(); 
-        foreach (var obj in spawnPattern.objects) {
-            obj.spawnRect.position = new Vector2Int(Mathf.Clamp(obj.spawnRect.position.x, 0, generator.roomSize.x), Mathf.Clamp(obj.spawnRect.position.y, 0, generator.roomSize.y));
-            obj.spawnRect.size = new Vector2Int(Mathf.Clamp(obj.spawnRect.size.x, 0, generator.roomSize.x - obj.spawnRect.position.x),
-                                                Mathf.Clamp(obj.spawnRect.size.y, 0, generator.roomSize.y - obj.spawnRect.position.y));
+        foreach (var obj in spawnPattern.objects)
+        {
+            obj.spawnRect.position = new Vector2(Mathf.Clamp01(obj.spawnRect.position.x), Mathf.Clamp01(obj.spawnRect.position.y));
+            obj.spawnRect.size = new Vector2(Mathf.Clamp(obj.spawnRect.size.x, 0f, 1f - obj.spawnRect.position.x),
+                                                Mathf.Clamp(obj.spawnRect.size.y, 0f, 1f - obj.spawnRect.position.y));
         }
         serializedObject.ApplyModifiedProperties();
     }
 
-    private void DrawElement(Rect rect, int index, bool isActive, bool isFocused) {
+    private void DrawElement(Rect rect, int index, bool isActive, bool isFocused)
+    {
         if (isFocused) {
             if (index != focused) current = -1;
             this.focused = index;
@@ -94,8 +117,6 @@ public class SpawnPatternEditor : Editor {
         Rect startRect = rect;
         float elementHeight = EditorGUIUtility.singleLineHeight * 10f;
         rect.height = EditorGUIUtility.singleLineHeight;
-
-
 
        
         SerializedProperty item = objectsArray.GetArrayElementAtIndex(index);
@@ -109,16 +130,36 @@ public class SpawnPatternEditor : Editor {
         rect.width  -= rect.height;
 
 
-
-        var spawnRect = item.FindPropertyRelative("spawnRect");
-        EditorGUI.PropertyField(rect, spawnRect);
-
-        var textureRect = new Rect(eGUI.indentWidth - rect.height - 5f, rect.y, rect.height, rect.height);
-        EditorGUI.DrawTextureTransparent(textureRect, SpawnPatternEditor.DrawRectangle(spawnRect.rectIntValue));
-        rect.y += rect.height;
-        rect.width += rect.height;
+        Rect spawnRectValue;
+        if (isNormalisedMode)
+        {
+            var spawnRect = item.FindPropertyRelative("spawnRect");
+            EditorGUI.PropertyField(rect, spawnRect);
+            spawnRectValue = spawnRect.rectValue;
+        }
+        else
+        {
+            var obj = spawnPattern.objects[index];
+            var spawnRectInt = new RectInt(Vector2Int.RoundToInt(obj.spawnRect.position * sizeWorld), Vector2Int.RoundToInt(obj.spawnRect.size * sizeWorld));
+            spawnRectInt = EditorGUI.RectIntField(rect, new GUIContent("Spawn Rect"), spawnRectInt);
+            obj.spawnRect = new Rect((Vector2)spawnRectInt.VectorPos() / sizeWorld, (Vector2)spawnRectInt.VectorSize() / sizeWorld);
+            spawnRectValue = obj.spawnRect;
+        }
 
         rect.height = EditorGUIUtility.singleLineHeight;
+        rect.y += EditorGUIUtility.singleLineHeight * 2f;
+        var snapToGrid = item.FindPropertyRelative("snapToGrid");
+        EditorGUI.PropertyField(rect, snapToGrid);
+        rect.y -= EditorGUIUtility.singleLineHeight * 2f;
+        rect.height = EditorGUIUtility.singleLineHeight * 3f;
+
+        var textureRect = new Rect(eGUI.indentWidth - rect.height - 5f, rect.y, rect.height, rect.height);
+        EditorGUI.DrawTextureTransparent(textureRect, SpawnPatternEditor.DrawRectangle(spawnRectValue));
+
+        rect.y += rect.height + 10f;
+        rect.width += rect.height;
+        rect.height = EditorGUIUtility.singleLineHeight;
+
         var spMin = item.FindPropertyRelative("minRotation");
         var spMax = item.FindPropertyRelative("maxRotation");
 
@@ -156,93 +197,24 @@ public class SpawnPatternEditor : Editor {
         rect.height = EditorGUIUtility.singleLineHeight;
         rect.width = 100f;
 
-        EditorGUI.PrefixLabel(rect, new GUIContent("Custom Config"));
-        rect.x += 100f;
-        rect.width = 50f;
-        var useCustomConfig = item.FindPropertyRelative("useCustomConfig");
-        useCustomConfig.boolValue = EditorGUI.Toggle(rect, useCustomConfig.boolValue);
-
-
-        IConfig configurable = Selection.activeGameObject?.GetComponent<IConfig>();
-
-        if (!useCustomConfig.boolValue || configurable == null) GUI.enabled = false;
-
-
-        rect.x += 50f;
-        rect.width = 200f;
-
-        if (GUI.Button(rect, "Take config from selected"))
-        {
-            spawnPattern.objects[index].config = configurable.GetConfig();
-        }
-
-        rect.x = startRect.x;
-        rect.width = startRect.width;
-        rect.y += EditorGUIUtility.singleLineHeight;
-
-        if (configurable != null)
-        {
-            EditorGUI.PropertyField(rect, configurable.GetProperty(), true);
-            configurable.ApplyProperty();
-
-            elementHeight += EditorGUI.GetPropertyHeight(configurable.GetProperty(), true);
-        }
-
-        GUI.enabled = true;
-
         listElementsHeight[index] = elementHeight;
-
-        //var spawnRect = item.FindPropertyRelative("spawnRect");
-        //EditorGUI.PropertyField(rect, spawnRect);
-
-        //var textureRect = new Rect(eGUI.indentWidth - rect.height - 5f, rect.y, rect.height, rect.height);
-        //EditorGUI.DrawTextureTransparent(textureRect, DrawRectangle(spawnPattern.objects[index].spawnRect));
-        //rect.y     += rect.height + fieldsOffset;
-        //rect.width += rect.height;
-
-        //rect.height = EditorGUIUtility.singleLineHeight;
-        //var spMin = item.FindPropertyRelative("minRotation");
-        //var spMax = item.FindPropertyRelative("maxRotation");
-
-        //GUILayout.BeginHorizontal();
-        //{
-        //    rect.width *= 0.5f;
-        //    EditorGUI.PropertyField(rect, spMin);
-        //    rect.x += rect.width; 
-        //    EditorGUI.PropertyField(rect, spMax);
-        //    rect.x -= rect.width;
-        //    rect.width *= 2f;
-        //}
-        //GUILayout.EndHorizontal();
-        //rect.y += rect.height + fieldsOffset;
-
-        //EditorGUI.MinMaxSlider(rect, "Rotation", ref spawnPattern.objects[index].minRotation, ref spawnPattern.objects[index].maxRotation, -360f, 360f);
-        //var f = spawnPattern.objects[index].maxRotation - spawnPattern.objects[index].minRotation;
-        //if (f > 360f) {
-        //    f                                       -= 360f;
-        //    spawnPattern.objects[index].maxRotation -= f;
-        //}
-        //rect.y += rect.height + fieldsOffset;
-
-        //var spawnChance = item.FindPropertyRelative("spawnChance");
-        //EditorGUI.Slider(rect, spawnChance, 0f, 1f);
     }
 
-    public static Texture2D DrawRectangle(RectInt rect) {
+    public static Texture2D DrawRectangle(Rect rect) {
         var texture = new Texture2D(100, 100);
-        for (var x = (int) ((float) rect.xMin / generator.roomSize.x * 100);
-             x < (float) rect.xMax / generator.roomSize.x * 100;
+        for (var x = (int) ((float) rect.xMin * 100);
+             x < (float) rect.xMax * 100;
              x++)
-            for (var y = (int) ((float) rect.yMin / generator.roomSize.y * 100);
-                 y < (float) rect.yMax / generator.roomSize.y * 100;
+            for (var y = (int) ((float) rect.yMin * 100);
+                 y < (float) rect.yMax * 100;
                  y++)
                 texture.SetPixel(x, y, Color.black);
         var centerDotSize = 5f;
-        for (var x = Mathf.Clamp((int) ((float) rect.x / generator.roomSize.x * 100 - centerDotSize), 0, 100);
-             x < Mathf.Clamp((float) rect.x / generator.roomSize.x * 100 + centerDotSize, 0, 100);
+        for (var x = Mathf.Clamp((int) ((float) rect.x * 100 - centerDotSize), 0, 100);
+             x < Mathf.Clamp((float) rect.x * 100 + centerDotSize, 0, 100);
              x++)
-            for (var y = Mathf.Clamp((int) ((float) rect.y / generator.roomSize.y * 100 - centerDotSize), 0, 100);
-                 y < Mathf.Clamp((float) rect.y * 100 / generator.roomSize.y + centerDotSize, 0, 100);
+            for (var y = Mathf.Clamp((int) ((float) rect.y * 100 - centerDotSize), 0, 100);
+                 y < Mathf.Clamp((float) rect.y * 100 + centerDotSize, 0, 100);
                  y++)
                 texture.SetPixel(x, y, Color.red);
         texture.Apply();
@@ -250,14 +222,14 @@ public class SpawnPatternEditor : Editor {
     }
 
     private void OnSceneGUI() {
-        if (generator == null) return;
+        //if (generator == null) return;
         DrawRoomBorder();
         var v = Vector3.zero;
         for (var i = 0; i < objectsArray.arraySize; i++) {
             dataP = objectsArray.GetArrayElementAtIndex(i);
-            var data2 = dataP.FindPropertyRelative("spawnRect").rectIntValue;
-            scale   = data2.VectorSize();
-            pos     = data2.position.GetVector3() - generator.roomSize.GetVector3() * 0.5f;
+            var data2 = dataP.FindPropertyRelative("spawnRect").rectValue;
+            scale   = data2.size * sizeWorld;
+            pos     = (Vector2)(data2.position - Vector2.one * 0.5f) * sizeWorld;
             rotV[0] = dataP.FindPropertyRelative("minRotation").floatValue;
             rotV[2] = dataP.FindPropertyRelative("maxRotation").floatValue;
             rotV[1] = Mathf.Lerp(rotV[0], rotV[2], 0.5f);
@@ -275,23 +247,23 @@ public class SpawnPatternEditor : Editor {
 
     private void DrawRoomBorder() {
         Handles.color = Color.red;
-        Handles.DrawWireCube(Vector3.zero, generator.roomSize.GetVector3());
+        Handles.DrawWireCube(Vector3.zero, sizeWorld);
     }
 
     private void DrawSelected(int index, Color colorArea, Color colorDirection, bool showControl) {
         var data = new RoomObject() {
-                                                     spawnRect   = dataP.FindPropertyRelative("spawnRect").rectIntValue,
+                                                     spawnRect   = dataP.FindPropertyRelative("spawnRect").rectValue,
                                                      minRotation = dataP.FindPropertyRelative("minRotation").floatValue,
                                                      maxRotation = dataP.FindPropertyRelative("maxRotation").floatValue
                                                  };
-        Vector3 sizeArea  = data.spawnRect.size.GetVector3();
+        Vector3 sizeArea  = data.spawnRect.size;
         var     shiftVert = new Vector3(0f,    0.25f, 0f);
         var     shitHorz  = new Vector3(0.25f, 0.0f,  0f);
         var     centerArc = pos + (Vector3) (sizeArea * 0.5f);
 
         DrawArea(data.spawnRect, colorArea);
         if (showEveryDirection)
-            DrawRotationMulti(pos + shiftVert * 2f + shitHorz * 2f, rotV[0], rotV[2], colorDirection, data.spawnRect.size);
+            DrawRotationMulti(pos + shiftVert * 2f + shitHorz * 2f, rotV[0], rotV[2], colorDirection, data.spawnRect.size * sizeWorld);
         else 
             DrawRotation(centerArc, rotV[0], rotV[2], colorDirection);
 
@@ -307,15 +279,20 @@ public class SpawnPatternEditor : Editor {
 
             #region Position 
 
+            Debug.Log("1 " + pos);
             Handles.color = Color.green;
-            var posT = pos + shiftVert * 1f + shitHorz * 1f;
+            var posT = pos + shiftVert * 0f + shitHorz * 0f;
             Handles.FreeMoveHandle(GIZMO_HANDLE_OFFSET + 4, posT, Quaternion.identity, HandleUtility.GetHandleSize(pos) * 0.2f, Vector3.zero, Handles.CubeHandleCap);
             if (current == 4) {
                 pos                     = Handles.PositionHandle(posT, Quaternion.identity);
+                pos -= shiftVert * 0f + shitHorz * 0f;
                 pos.x                   = Mathf.Clamp(pos.x, -sizeWorld.x * 0.5f, sizeWorld.x * 0.5f - sizeArea.x);
                 pos.y                   = Mathf.Clamp(pos.y, -sizeWorld.y * 0.5f, sizeWorld.y * 0.5f - sizeArea.y);
-                data.spawnRect.position = (pos + sizeWorld * 0.5f).GetVector2Int();
-            }
+                //pos                    += Vector3.one * 0.5f;
+                data.spawnRect.position = ((Vector2)pos / sizeWorld) + Vector2.one * 0.5f;
+                Debug.Log("2 " + pos);
+            } 
+
 
             #endregion
 
@@ -326,10 +303,9 @@ public class SpawnPatternEditor : Editor {
             Handles.FreeMoveHandle(GIZMO_HANDLE_OFFSET + 5, posT, Quaternion.identity, HandleUtility.GetHandleSize(pos) * 0.2f, Vector3.zero, Handles.SphereHandleCap);
             if (current == 5) {
                 scale                 = Handles.ScaleHandle(scale, posT, Quaternion.identity, HandleUtility.GetHandleSize(pos) * 1f);
-                scale.x               = Mathf.Clamp(scale.x, 0f, generator.roomSize.x - data.spawnRect.position.x);
-                scale.y               = Mathf.Clamp(scale.y, 0f, generator.roomSize.y - data.spawnRect.position.y);
-                data.spawnRect.width  = (int) scale.x;
-                data.spawnRect.height = (int) scale.y;
+                scale.x               = Mathf.Clamp(scale.x, 0f, (1f - data.spawnRect.position.x) * sizeWorld.x);
+                scale.y               = Mathf.Clamp(scale.y, 0f, (1f - data.spawnRect.position.y) * sizeWorld.y);
+                data.spawnRect.size   = scale / sizeWorld;
             }
 
             #endregion
@@ -364,7 +340,7 @@ public class SpawnPatternEditor : Editor {
 
             #region Apply changes
 
-            dataP.FindPropertyRelative("spawnRect").rectIntValue = data.spawnRect;
+            dataP.FindPropertyRelative("spawnRect").rectValue = data.spawnRect;
             dataP.FindPropertyRelative("minRotation").floatValue = rotV[0];
             dataP.FindPropertyRelative("maxRotation").floatValue = rotV[2];
             serializedObject.ApplyModifiedProperties();
@@ -373,12 +349,12 @@ public class SpawnPatternEditor : Editor {
         }
     }
 
-    private void DrawArea(RectInt rect, Color color) {
+    private void DrawArea(Rect rect, Color color) {
         Handles.color = color;
-        Handles.DrawWireCube((Vector3) rect.VectorCenter() - sizeWorld * 0.5f, new Vector3(rect.width, rect.height, 0f));
+        Handles.DrawWireCube((rect.center - Vector2.one * 0.5f) * sizeWorld, rect.size * sizeWorld);
     }
 
-    private void DrawRotationMulti(Vector3 centerArc, float min, float max, Color color, Vector2Int size) {
+    private void DrawRotationMulti(Vector3 centerArc, float min, float max, Color color, Vector2 size) {
         Handles.color = color;
         var v = Vector3.zero;
         for (int y = 0; y < size.y; y++)

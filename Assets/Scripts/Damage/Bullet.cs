@@ -44,14 +44,14 @@ namespace Damage
         {
             ContactsCounter = 0;
 
-            roomCoords = Generator.Instance.GlobalToLocal(transform.position);
+            //roomCoords = Generator.Instance.GlobalToLocal(transform.position);
 
             rb.velocity = transform.up * config.Speed;
         }
 
         void Update()
         {
-            if (roomCoords != Generator.Instance.GlobalToLocal(transform.position)) Destroy(gameObject);
+            //if (roomCoords != Generator.Instance.GlobalToLocal(transform.position)) Destroy(gameObject);
         }
 
 

@@ -12,15 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192ec0db1987fd244bd7a7661e8b231a, type: 3}
   m_Name: 2 Turrets 1 Asshole
   m_EditorClassIdentifier: 
+  sizes:
+  - {x: 10, y: 10}
+  editorRoomSize: {x: 12, y: 10}
   objects:
   - prefabData:
       id: 4
     spawnRect:
-      x: 6
-      y: 3
-      width: 1
-      height: 2
-    minRotation: 0.27
+      serializedVersion: 2
+      x: 0.08333334
+      y: 0.099999994
+      width: 0.6666667
+      height: 0.6
+    minRotation: 0
     maxRotation: 0
     spawnChance: 1
     useCustomConfig: 0
@@ -28,11 +32,12 @@ MonoBehaviour:
   - prefabData:
       id: 4
     spawnRect:
-      x: 6
-      y: 7
-      width: 7
-      height: 2
-    minRotation: 0.15
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    minRotation: -360
     maxRotation: 0
     spawnChance: 1
     useCustomConfig: 0
@@ -40,10 +45,11 @@ MonoBehaviour:
   - prefabData:
       id: 12
     spawnRect:
-      x: 3
-      y: 2
-      width: 10
-      height: 7
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
     minRotation: -360
     maxRotation: 0
     spawnChance: 1

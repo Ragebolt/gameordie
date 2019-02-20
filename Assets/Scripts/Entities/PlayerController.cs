@@ -56,20 +56,20 @@ namespace Entities
 
         private void CheckRoom()
         {
-            Generator.RoomInfo room = Generator.Instance.GetRoomOnCoords(origin.position);
+            if (Room != null && Room.Bounds.Contains(origin.position)) return;
+
+            Generator.RoomInfo room = Generator.Instance.GetRoomAt(origin.position);
 
             // При переходе в новую комнату...
-            if (Room != room)
+            if (Room != room && room != null)
             {
-                CameraController.Instance.target = room.GameObject.transform;
-
                 if (Room != null)
                 {
                     foreach (var enemy in Room.enemies)
                     {
                         enemy.Disable();
                     }
-                    Room.Carcass.OpenDoors();
+                    Room.OpenDoors();
                 }
 
                 foreach (var enemy in room.enemies)
@@ -77,7 +77,7 @@ namespace Entities
                     enemy.Activate();
                 }
 
-                if (!room.IsPassed) room.Carcass.CloseDoors();
+                if (!room.IsPassed) room.CloseDoors();
             }
 
             Room = room;
