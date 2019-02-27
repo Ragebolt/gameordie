@@ -12,53 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192ec0db1987fd244bd7a7661e8b231a, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: 
+  sizes:
+  - {x: 7, y: 7}
+  - {x: 7, y: 8}
+  - {x: 7, y: 9}
+  - {x: 7, y: 10}
+  - {x: 7, y: 11}
+  - {x: 7, y: 12}
+  editorRoomSize: {x: 4, y: 6}
   objects:
-  - prefab: {fileID: 6317182822682539289, guid: 7780a0839f6fad147833ec9e41391c17,
-      type: 3}
+  - prefabData:
+      id: 4
     spawnRect:
-      x: 4
-      y: 3
-      width: 0
-      height: 0
-    minRotation: 268.86075
-    maxRotation: 268.86075
-    spawnChance: 1
-  - prefab: {fileID: 6317182822682539289, guid: 7780a0839f6fad147833ec9e41391c17,
-      type: 3}
-    spawnRect:
-      x: 10
-      y: 2
-      width: 0
-      height: 0
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 1
+      height: 1
+    snapToGrid: 1
     minRotation: 0
     maxRotation: 0
     spawnChance: 1
-  - prefab: {fileID: 6317182822682539289, guid: 7780a0839f6fad147833ec9e41391c17,
-      type: 3}
-    spawnRect:
-      x: 5
-      y: 8
-      width: 0
-      height: 0
-    minRotation: 179.99998
-    maxRotation: 179.99998
-    spawnChance: 1
-  - prefab: {fileID: 6317182822682539289, guid: 7780a0839f6fad147833ec9e41391c17,
-      type: 3}
-    spawnRect:
-      x: 11
-      y: 7
-      width: 0
-      height: 0
-    minRotation: 88.860756
-    maxRotation: 88.860756
-    spawnChance: 1
-  - prefab: {fileID: 1912203083618624, guid: aa0b35ea6cf34ac48b0e6cd80a469c16, type: 3}
-    spawnRect:
-      x: 7
-      y: 5
-      width: 0
-      height: 0
-    minRotation: 175.44304
-    maxRotation: 175.44304
-    spawnChance: 1
+    useCustomConfig: 0
+    config: 

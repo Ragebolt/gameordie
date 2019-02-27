@@ -29,6 +29,7 @@ namespace Damage
 
         private Vector2Int roomCoords;
 
+        public bool IsCopy { get; set; } = false;
 
         public enum DestroyCondition
         {
@@ -44,14 +45,7 @@ namespace Damage
         {
             ContactsCounter = 0;
 
-            roomCoords = Generator.Instance.GlobalToLocal(transform.position);
-
             rb.velocity = transform.up * config.Speed;
-        }
-
-        void Update()
-        {
-            if (roomCoords != Generator.Instance.GlobalToLocal(transform.position)) Destroy(gameObject);
         }
 
 
